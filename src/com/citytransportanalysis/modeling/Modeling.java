@@ -6,6 +6,7 @@ import com.citytransportanalysis.modeling.entity.Transport;
 
 import java.time.LocalTime;
 import java.util.*;
+import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * Modeling class for modeling all that shit.
@@ -62,10 +63,10 @@ public class Modeling {
 
                     if (routeSegment == routeSegments.getFirst()) {
                         transport.addMoveTime(stop1.getWaitTime());
-                        transport.setPassengers(stop1.SettingInTransport(transport.getCurrentTime(), transport.getPassengers(), transport.getFreePlaces()));
+                        stop1.SettingInTransport(transport.getCurrentTime(), transport.getPassengers(), transport.getFreePlaces());
                         //System.out.printf("Посадка. Зайшло %d чел, залишилось %d місць. Не зайшло %d чел\n", transport.getOccupiedPlaces(), transport.getFreePlaces(), stop1.getPassengers().size());
                         transport.addToAllPassengersCount(stop1.getSittedPassengers());
-                        eventsLog.add(new Event(transport.getCurrentTime(), String.format("Посадка. Зайшло %d чел, залишилось %d місць. Не зайшло %d чел\n", transport.getOccupiedPlaces(), transport.getFreePlaces(), stop1.getPassengers().size())));
+                        eventsLog.add(new Event(transport.getCurrentTime(), String.format("Посадка. Зайшло %d чел, зайнято %d/%d місць. Не зайшло %d чел\n", stop1.getSittedPassengers(), transport.getOccupiedPlaces(), transport.getTotalPlaces(), stop1.getPassengers().size())));
                         //System.out.printf("%s %d по маршруту №%s зупинився на зупинці \"%s\" %s секунд\n", transport.getTransportType().name(), transport.getId(), transport.getRouteNumber(), stop1.getName(), stop1.getWaitTime());
                         eventsLog.add(new Event(transport.getCurrentTime(), String.format("%s %d по маршруту №%s зупинився на зупинці \"%s\" %s секунд\n", transport.getTransportType().name(), transport.getId(), transport.getRouteNumber(), stop1.getName(), stop1.getWaitTime())));
                     }
@@ -88,13 +89,13 @@ public class Modeling {
                         transport.addMoveTime(stop2.getWaitTime());
                         //System.out.printf("%s %d по маршруту №%s зупинився на зупинці \"%s\" %s секунд\n", transport.getTransportType().name(), transport.getId(), transport.getRouteNumber(), stop2.getName(), stop2.getWaitTime());
                         eventsLog.add(new Event(transport.getCurrentTime(), String.format("%s %d по маршруту №%s зупинився на зупинці \"%s\" %s секунд\n", transport.getTransportType().name(), transport.getId(), transport.getRouteNumber(), stop2.getName(), stop2.getWaitTime())));
-                        transport.setPassengers(stop2.GettingOutFromTransport(transport.getCurrentTime(), transport.getPassengers()));
+                        stop2.GettingOutFromTransport(transport.getCurrentTime(), transport.getPassengers());
                         //System.out.printf("Висадка. Вийшло %d чел, залишилось %d чел на %d місць\n", exittedCount, transport.getOccupiedPlaces(), transport.getTotalPlaces());
-                        eventsLog.add(new Event(transport.getCurrentTime(), String.format("Висадка. Вийшло %d чел, залишилось %d чел на %d місць\n", stop2.getGettedOutPassengers(), transport.getOccupiedPlaces(), transport.getTotalPlaces())));
-                        transport.setPassengers(stop2.SettingInTransport(transport.getCurrentTime(), transport.getPassengers(), transport.getFreePlaces()));
+                        eventsLog.add(new Event(transport.getCurrentTime(), String.format("Висадка. Вийшло %d чел, зайнято %d/%d місць.\n", stop2.getGettedOutPassengers(), transport.getOccupiedPlaces(), transport.getTotalPlaces())));
+                        stop2.SettingInTransport(transport.getCurrentTime(), transport.getPassengers(), transport.getFreePlaces());
                         transport.addToAllPassengersCount(stop2.getSittedPassengers());
                         //System.out.printf("Посадка. Зайшло %d чел, залишилось %d місць. Не зайшло %d чел\n", transport.getOccupiedPlaces(), transport.getFreePlaces(), stop2.getPassengers().size());
-                        eventsLog.add(new Event(transport.getCurrentTime(), String.format("Посадка. Зайшло %d чел, залишилось %d місць. Не зайшло %d чел\n", stop2.getSittedPassengers(), transport.getFreePlaces(), stop2.getPassengers().size())));
+                        eventsLog.add(new Event(transport.getCurrentTime(), String.format("Посадка. Зайшло %d чел, зайнято %d/%d місць. Не зайшло %d чел\n", stop2.getSittedPassengers(), transport.getOccupiedPlaces(), transport.getTotalPlaces(), stop2.getPassengers().size())));
 
                     }
 
@@ -129,12 +130,12 @@ public class Modeling {
         //LocalTime startTime = LocalTime.parse("06:00");
         //long minutesPeriod = 10;
 
-        for (int i = 1; i <= 2; i++) {
+        for (int i = 1; i <= 4; i++) {
             Transport marshrutka = new Transport();
             marshrutka.setId(i);
             marshrutka.setRouteNumber("48");
-            marshrutka.setSeatPlaces(10);
-            marshrutka.setStandPlaces(5);
+            marshrutka.setSeatPlaces(20);
+            marshrutka.setStandPlaces(15);
             marshrutka.setStatus(Transport.Status.OnStop);
             marshrutka.setTransportType(Transport.Type.Microbus);
             marshrutka.setPassengers(new ArrayList<>());
@@ -147,28 +148,56 @@ public class Modeling {
         return transportList;
     }
 
-    private LinkedList<RouteSegment> routeData() {
-        Map<LocalTime, Double> passengerComingTime = new HashMap<LocalTime, Double>() {
+    private Map<LocalTime, Double> passengerComingTimeGen(){
+        return new HashMap<LocalTime, Double>() {
             {
-                put(LocalTime.parse("06:00"), 230.8);
-                put(LocalTime.parse("07:00"), 70.9);
-                put(LocalTime.parse("08:00"), 90.1);
-                put(LocalTime.parse("09:00"), 170.1);
-                put(LocalTime.parse("10:00"), 200.8);
-                put(LocalTime.parse("11:00"), 210.8);
-                put(LocalTime.parse("12:00"), 200.0);
-                put(LocalTime.parse("13:00"), 180.2);
-                put(LocalTime.parse("14:00"), 170.1);
-                put(LocalTime.parse("15:00"), 210.6);
-                put(LocalTime.parse("16:00"), 90.8);
-                put(LocalTime.parse("17:00"), 90.6);
-                put(LocalTime.parse("18:00"), 90.8);
-                put(LocalTime.parse("19:00"), 140.6);
-                put(LocalTime.parse("20:00"), 170.3);
-                put(LocalTime.parse("21:00"), 240.9);
-                put(LocalTime.parse("22:00"), 750.0);
+                put(LocalTime.parse("06:00"), ThreadLocalRandom.current().nextDouble(100.0, 300.0));
+                put(LocalTime.parse("07:00"), ThreadLocalRandom.current().nextDouble(100.0, 300.0));
+                put(LocalTime.parse("08:00"), ThreadLocalRandom.current().nextDouble(100.0, 300.0));
+                put(LocalTime.parse("09:00"), ThreadLocalRandom.current().nextDouble(100.0, 300.0));
+                put(LocalTime.parse("10:00"), ThreadLocalRandom.current().nextDouble(100.0, 300.0));
+                put(LocalTime.parse("11:00"), ThreadLocalRandom.current().nextDouble(100.0, 300.0));
+                put(LocalTime.parse("12:00"), ThreadLocalRandom.current().nextDouble(100.0, 300.0));
+                put(LocalTime.parse("13:00"), ThreadLocalRandom.current().nextDouble(100.0, 300.0));
+                put(LocalTime.parse("14:00"), ThreadLocalRandom.current().nextDouble(100.0, 300.0));
+                put(LocalTime.parse("15:00"), ThreadLocalRandom.current().nextDouble(100.0, 300.0));
+                put(LocalTime.parse("16:00"), ThreadLocalRandom.current().nextDouble(100.0, 300.0));
+                put(LocalTime.parse("17:00"), ThreadLocalRandom.current().nextDouble(100.0, 300.0));
+                put(LocalTime.parse("18:00"), ThreadLocalRandom.current().nextDouble(100.0, 300.0));
+                put(LocalTime.parse("19:00"), ThreadLocalRandom.current().nextDouble(100.0, 300.0));
+                put(LocalTime.parse("20:00"), ThreadLocalRandom.current().nextDouble(100.0, 300.0));
+                put(LocalTime.parse("21:00"), ThreadLocalRandom.current().nextDouble(100.0, 300.0));
+                put(LocalTime.parse("22:00"), ThreadLocalRandom.current().nextDouble(100.0, 300.0));
             }
         };
+    }
+
+    private Map<LocalTime, Double> passengerExitProbabilityGen(){
+        return new HashMap<LocalTime, Double>() {
+            {
+                put(LocalTime.parse("06:00"), ThreadLocalRandom.current().nextDouble(0.12, 0.30));
+                put(LocalTime.parse("07:00"), ThreadLocalRandom.current().nextDouble(0.12, 0.30));
+                put(LocalTime.parse("08:00"), ThreadLocalRandom.current().nextDouble(0.12, 0.30));
+                put(LocalTime.parse("09:00"), ThreadLocalRandom.current().nextDouble(0.12, 0.30));
+                put(LocalTime.parse("10:00"), ThreadLocalRandom.current().nextDouble(0.12, 0.30));
+                put(LocalTime.parse("11:00"), ThreadLocalRandom.current().nextDouble(0.12, 0.30));
+                put(LocalTime.parse("12:00"), ThreadLocalRandom.current().nextDouble(0.12, 0.30));
+                put(LocalTime.parse("13:00"), ThreadLocalRandom.current().nextDouble(0.12, 0.30));
+                put(LocalTime.parse("14:00"), ThreadLocalRandom.current().nextDouble(0.12, 0.30));
+                put(LocalTime.parse("15:00"), ThreadLocalRandom.current().nextDouble(0.12, 0.30));
+                put(LocalTime.parse("16:00"), ThreadLocalRandom.current().nextDouble(0.12, 0.30));
+                put(LocalTime.parse("17:00"), ThreadLocalRandom.current().nextDouble(0.12, 0.30));
+                put(LocalTime.parse("18:00"), ThreadLocalRandom.current().nextDouble(0.12, 0.30));
+                put(LocalTime.parse("19:00"), ThreadLocalRandom.current().nextDouble(0.12, 0.30));
+                put(LocalTime.parse("20:00"), ThreadLocalRandom.current().nextDouble(0.12, 0.30));
+                put(LocalTime.parse("21:00"), ThreadLocalRandom.current().nextDouble(0.12, 0.30));
+                put(LocalTime.parse("22:00"), ThreadLocalRandom.current().nextDouble(0.12, 0.30));
+            }
+        };
+    }
+
+    private LinkedList<RouteSegment> routeData() {
+
         Map<LocalTime, Double> passengerComingTimeLast = new HashMap<LocalTime, Double>() {
             {
                 put(LocalTime.parse("06:00"), 0.0);
@@ -211,27 +240,6 @@ public class Modeling {
                 put(LocalTime.parse("22:00"), 0.0);
             }
         };
-        Map<LocalTime, Double> passengerExitProbability1 = new HashMap<LocalTime, Double>() {
-            {
-                put(LocalTime.parse("06:00"), 0.14);
-                put(LocalTime.parse("07:00"), 0.14);
-                put(LocalTime.parse("08:00"), 0.14);
-                put(LocalTime.parse("09:00"), 0.15);
-                put(LocalTime.parse("10:00"), 0.19);
-                put(LocalTime.parse("11:00"), 0.20);
-                put(LocalTime.parse("12:00"), 0.20);
-                put(LocalTime.parse("13:00"), 0.27);
-                put(LocalTime.parse("14:00"), 0.24);
-                put(LocalTime.parse("15:00"), 0.32);
-                put(LocalTime.parse("16:00"), 0.27);
-                put(LocalTime.parse("17:00"), 0.21);
-                put(LocalTime.parse("18:00"), 0.20);
-                put(LocalTime.parse("19:00"), 0.28);
-                put(LocalTime.parse("20:00"), 0.23);
-                put(LocalTime.parse("21:00"), 0.21);
-                put(LocalTime.parse("22:00"), 0.21);
-            }
-        };
         Map<LocalTime, Double> passengerExitProbabilityLast = new HashMap<LocalTime, Double>() {
             {
                 put(LocalTime.parse("06:00"), 1.0);
@@ -253,21 +261,21 @@ public class Modeling {
                 put(LocalTime.parse("22:00"), 1.0);
             }
         };
-        Stop stop1 = new Stop("Станція метро \"Лівобережна\"", passengerComingTime, passengerExitProbability, 30);
-        Stop stop2 = new Stop("Вулиця Ентузіастів", passengerComingTime, passengerExitProbability1, 20);
-        Stop stop3 = new Stop("Пішохідний міст", passengerComingTime, passengerExitProbability1, 20);
-        Stop stop4 = new Stop("Бібліотека", passengerComingTime, passengerExitProbability1, 20);
-        Stop stop5 = new Stop("Бювет", passengerComingTime, passengerExitProbability1, 20);
-        Stop stop6 = new Stop("Пошта №154", passengerComingTime, passengerExitProbability1, 20);
-        Stop stop7 = new Stop("Бульвар Олексія Давидова", passengerComingTime, passengerExitProbability1, 20);
-        Stop stop8 = new Stop("Готель \"Славутич\"", passengerComingTime, passengerExitProbability1, 20);
-        Stop stop9 = new Stop("Бульвар Олексія Давидова", passengerComingTime, passengerExitProbability1, 20);
-        Stop stop10 = new Stop("Пошта №154", passengerComingTime, passengerExitProbability1, 20);
-        Stop stop11 = new Stop("Залізнична платформа Київ-Русанівка", passengerComingTime, passengerExitProbability1, 20);
-        Stop stop12 = new Stop("Бібліотека", passengerComingTime, passengerExitProbability1, 20);
-        Stop stop13 = new Stop("Пішохідний міст", passengerComingTime, passengerExitProbability1, 20);
-        Stop stop14 = new Stop("Вулиця Ентузіастів", passengerComingTime, passengerExitProbability1, 20);
-        Stop stop15 = new Stop("Вулиця Раїси Окіпної", passengerComingTime, passengerExitProbability1, 20);
+        Stop stop1 = new Stop("Станція метро \"Лівобережна\"", passengerComingTimeGen(), passengerExitProbability, 30);
+        Stop stop2 = new Stop("Вулиця Ентузіастів", passengerComingTimeGen(), passengerExitProbabilityGen(), 20);
+        Stop stop3 = new Stop("Пішохідний міст", passengerComingTimeGen(), passengerExitProbabilityGen(), 20);
+        Stop stop4 = new Stop("Бібліотека", passengerComingTimeGen(), passengerExitProbabilityGen(), 20);
+        Stop stop5 = new Stop("Бювет", passengerComingTimeGen(), passengerExitProbabilityGen(), 20);
+        Stop stop6 = new Stop("Пошта №154", passengerComingTimeGen(), passengerExitProbabilityGen(), 20);
+        Stop stop7 = new Stop("Бульвар Олексія Давидова", passengerComingTimeGen(), passengerExitProbabilityGen(), 20);
+        Stop stop8 = new Stop("Готель \"Славутич\"", passengerComingTimeGen(), passengerExitProbabilityGen(), 20);
+        Stop stop9 = new Stop("Бульвар Олексія Давидова", passengerComingTimeGen(), passengerExitProbabilityGen(), 20);
+        Stop stop10 = new Stop("Пошта №154", passengerComingTimeGen(), passengerExitProbabilityGen(), 20);
+        Stop stop11 = new Stop("Залізнична платформа Київ-Русанівка", passengerComingTimeGen(), passengerExitProbabilityGen(), 20);
+        Stop stop12 = new Stop("Бібліотека", passengerComingTimeGen(), passengerExitProbabilityGen(), 20);
+        Stop stop13 = new Stop("Пішохідний міст", passengerComingTimeGen(), passengerExitProbabilityGen(), 20);
+        Stop stop14 = new Stop("Вулиця Ентузіастів", passengerComingTimeGen(), passengerExitProbabilityGen(), 20);
+        Stop stop15 = new Stop("Вулиця Раїси Окіпної", passengerComingTimeGen(), passengerExitProbabilityGen(), 20);
         Stop stop16 = new Stop("Станція метро \"Лівобережна\"", passengerComingTimeLast, passengerExitProbabilityLast, 30);
 
 

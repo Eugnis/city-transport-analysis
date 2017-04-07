@@ -120,7 +120,8 @@ public class Stop {
         Double exitProbability = passengerExitProbability.get(time.truncatedTo(ChronoUnit.HOURS));
         int exitCount = (int) Math.round(presentPassengers.size() * exitProbability);
         this.setGettedOutPassengers(exitCount);
-        return presentPassengers.subList(0, exitCount);
+        presentPassengers.subList(0, exitCount).clear();
+        return presentPassengers;
     }
 
     public int getGettedOutPassengers() {
