@@ -103,25 +103,25 @@ public class Stop {
 
     }
 
-    public List<Passenger> SettingInTransport(LocalTime time, List<Passenger> presentPassengers, int freePlaces){
-        GeneratePassengers(time);
-        int toSit = freePlaces;
+    public List<Passenger> SettingInTransport(Transport transport){
+        GeneratePassengers(transport.getCurrentTime());
+        int toSit = transport.getFreePlaces();
         int setted = 0;
         while(toSit>0 && passengers.size()>0){
-            presentPassengers.add(passengers.pollFirst());
+            transport.getPassengers().add(passengers.pollFirst());
             setted++;
             toSit--;
         }
         this.setSittedPassengers(setted);
-        return presentPassengers;
+        return transport.getPassengers();
     }
 
-    public List<Passenger> GettingOutFromTransport(LocalTime time, List<Passenger> presentPassengers){
-        Double exitProbability = passengerExitProbability.get(time.truncatedTo(ChronoUnit.HOURS));
-        int exitCount = (int) Math.round(presentPassengers.size() * exitProbability);
+    public List<Passenger> GettingOutFromTransport(Transport transport){
+        Double exitProbability = passengerExitProbability.get(transport.getCurrentTime().truncatedTo(ChronoUnit.HOURS));
+        int exitCount = (int) Math.round(transport.getPassengers().size() * exitProbability);
         this.setGettedOutPassengers(exitCount);
-        presentPassengers.subList(0, exitCount).clear();
-        return presentPassengers;
+        transport.getPassengers().subList(0, exitCount).clear();
+        return transport.getPassengers();
     }
 
     public int getGettedOutPassengers() {

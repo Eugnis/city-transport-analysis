@@ -37,11 +37,11 @@ public class Modeling {
         System.out.println("Modeling finished.");
     }
 
-    private void Movement(LinkedList<RouteSegment> routeSegments, List<Transport> transportList, LocalTime startTime, LocalTime endTime) {
+    private void Movement(LinkedList<RouteSegment> routeSegments, LinkedList<Transport> transportList, LocalTime startTime, LocalTime endTime) {
         double moveTime = 0;
         double length = 0;
 
-        long minutesPeriod = 20;                            //период подхода нового транспорта в минутах
+        long minutesPeriod = 10;                            //период подхода нового транспорта в минутах
 
         LocalTime currentTime = startTime;
         LocalTime lastEndTime = startTime;
@@ -49,13 +49,11 @@ public class Modeling {
         boolean timeIsOver = false;
 
         while(!timeIsOver && lastEndTime.isBefore(endTime)) {       //пока время движения в заданных рамках
-
-            for (Transport transport : transportList) {
-                transport.setStartTime(currentTime);
-                currentTime = currentTime.plusMinutes(minutesPeriod);
-
-                //System.out.printf("Початок руху %s %d по маршруту №%s о %s\n", transport.getTransportType().name(), transport.getId(), transport.getRouteNumber(), transport.getStartTime());
-                eventsLog.add(new Event(transport.getCurrentTime(), String.format("Початок руху %s %d по маршруту №%s о %s\n", transport.getTransportType().name(), transport.getId(), transport.getRouteNumber(), transport.getStartTime())));
+            ListIterator<Transport> transportListIterator = transportList.listIterator(0);
+            while (transportListIterator.hasNext()){
+                Transport transport = transportListIterator.next();
+                System.out.printf("Id:%s Time:%s\n", transport.getId(), transport.getStartTime());
+                eventsLog.add(new Event(transport.getCurrentTime(), String.format("---------------------------------------------------------------------------------------------------------------------\nПочаток руху %s %d по маршруту №%s о %s\n", transport.getTransportType().name(), transport.getId(), transport.getRouteNumber(), transport.getStartTime())));
 
                 for (RouteSegment routeSegment : routeSegments) {
                     Stop stop1 = routeSegment.getTwoStops().get(0);
@@ -63,52 +61,51 @@ public class Modeling {
 
                     if (routeSegment == routeSegments.getFirst()) {
                         transport.addMoveTime(stop1.getWaitTime());
-                        stop1.SettingInTransport(transport.getCurrentTime(), transport.getPassengers(), transport.getFreePlaces());
-                        //System.out.printf("Посадка. Зайшло %d чел, залишилось %d місць. Не зайшло %d чел\n", transport.getOccupiedPlaces(), transport.getFreePlaces(), stop1.getPassengers().size());
+                        stop1.SettingInTransport(transport);
                         transport.addToAllPassengersCount(stop1.getSittedPassengers());
-                        eventsLog.add(new Event(transport.getCurrentTime(), String.format("Посадка. Зайшло %d чел, зайнято %d/%d місць. Не зайшло %d чел\n", stop1.getSittedPassengers(), transport.getOccupiedPlaces(), transport.getTotalPlaces(), stop1.getPassengers().size())));
-                        //System.out.printf("%s %d по маршруту №%s зупинився на зупинці \"%s\" %s секунд\n", transport.getTransportType().name(), transport.getId(), transport.getRouteNumber(), stop1.getName(), stop1.getWaitTime());
-                        eventsLog.add(new Event(transport.getCurrentTime(), String.format("%s %d по маршруту №%s зупинився на зупинці \"%s\" %s секунд\n", transport.getTransportType().name(), transport.getId(), transport.getRouteNumber(), stop1.getName(), stop1.getWaitTime())));
+                        eventsLog.add(new Event(transport.getCurrentTime(), String.format("%s %d по маршруту №%s зупинився на зупинці \"%s\" %s секунд\n", transport.getTransportType().name(), transport.getId(), transport.getRouteNumber(), stop1.getName(), stop1.getWaitTime()) + String.format("Посадка. Зайшло %d чел, зайнято %d/%d місць. Не зайшло %d чел\n", stop1.getSittedPassengers(), transport.getOccupiedPlaces(), transport.getTotalPlaces(), stop1.getPassengers().size())));
                     }
                     //TODO работает вроде, но надо сделать норм
 
                     transport.addMoveTime(routeSegment.getPassingTime());
-                    //System.out.printf("%s %d по маршруту №%s їде між зупинками \"%s\" і \"%s\" %s секунд\n", transport.getTransportType().name(), transport.getId(), transport.getRouteNumber(), stop1.getName(), stop2.getName(), routeSegment.getPassingTime());
                     eventsLog.add(new Event(transport.getCurrentTime(), String.format("%s %d по маршруту №%s їде між зупинками \"%s\" і \"%s\" %s секунд\n", transport.getTransportType().name(), transport.getId(), transport.getRouteNumber(), stop1.getName(), stop2.getName(), routeSegment.getPassingTime())));
 
                     if (routeSegment == routeSegments.getLast()) {
                         transport.addMoveTime(stop2.getWaitTime());
-                        //System.out.printf("%s %d по маршруту №%s зупинився на зупинці \"%s\" %s секунд\n", transport.getTransportType().name(), transport.getId(), transport.getRouteNumber(), stop2.getName(), stop2.getWaitTime());
-                        eventsLog.add(new Event(transport.getCurrentTime(), String.format("%s %d по маршруту №%s зупинився на зупинці \"%s\" %s секунд\n", transport.getTransportType().name(), transport.getId(), transport.getRouteNumber(), stop2.getName(), stop2.getWaitTime())));
                         transport.getPassengers().clear();
-                        //System.out.printf("Висадка. Вийшли всі, залишилось %d чел на %d місць\n", transport.getOccupiedPlaces(), transport.getTotalPlaces());
-                        eventsLog.add(new Event(transport.getCurrentTime(), String.format("Висадка. Вийшли всі, залишилось %d чел на %d місць\n", transport.getOccupiedPlaces(), transport.getTotalPlaces())));
+                        eventsLog.add(new Event(transport.getCurrentTime(), String.format("%s %d по маршруту №%s зупинився на зупинці \"%s\" %s секунд\n", transport.getTransportType().name(), transport.getId(), transport.getRouteNumber(), stop2.getName(), stop2.getWaitTime()) + String.format("Висадка. Вийшли всі, залишилось %d чел на %d місць\n", transport.getOccupiedPlaces(), transport.getTotalPlaces())));
 
                     }
                     else{
                         transport.addMoveTime(stop2.getWaitTime());
-                        //System.out.printf("%s %d по маршруту №%s зупинився на зупинці \"%s\" %s секунд\n", transport.getTransportType().name(), transport.getId(), transport.getRouteNumber(), stop2.getName(), stop2.getWaitTime());
-                        eventsLog.add(new Event(transport.getCurrentTime(), String.format("%s %d по маршруту №%s зупинився на зупинці \"%s\" %s секунд\n", transport.getTransportType().name(), transport.getId(), transport.getRouteNumber(), stop2.getName(), stop2.getWaitTime())));
-                        stop2.GettingOutFromTransport(transport.getCurrentTime(), transport.getPassengers());
-                        //System.out.printf("Висадка. Вийшло %d чел, залишилось %d чел на %d місць\n", exittedCount, transport.getOccupiedPlaces(), transport.getTotalPlaces());
-                        eventsLog.add(new Event(transport.getCurrentTime(), String.format("Висадка. Вийшло %d чел, зайнято %d/%d місць.\n", stop2.getGettedOutPassengers(), transport.getOccupiedPlaces(), transport.getTotalPlaces())));
-                        stop2.SettingInTransport(transport.getCurrentTime(), transport.getPassengers(), transport.getFreePlaces());
+                        stop2.GettingOutFromTransport(transport);
+                        String status = String.format("%s %d по маршруту №%s зупинився на зупинці \"%s\" %s секунд\n", transport.getTransportType().name(), transport.getId(), transport.getRouteNumber(), stop2.getName(), stop2.getWaitTime()) + String.format("Висадка. Вийшло %d чел, зайнято %d/%d місць.\n", stop2.getGettedOutPassengers(), transport.getOccupiedPlaces(), transport.getTotalPlaces());
+                        stop2.SettingInTransport(transport);
                         transport.addToAllPassengersCount(stop2.getSittedPassengers());
-                        //System.out.printf("Посадка. Зайшло %d чел, залишилось %d місць. Не зайшло %d чел\n", transport.getOccupiedPlaces(), transport.getFreePlaces(), stop2.getPassengers().size());
-                        eventsLog.add(new Event(transport.getCurrentTime(), String.format("Посадка. Зайшло %d чел, зайнято %d/%d місць. Не зайшло %d чел\n", stop2.getSittedPassengers(), transport.getOccupiedPlaces(), transport.getTotalPlaces(), stop2.getPassengers().size())));
-
+                        status+= String.format("Посадка. Зайшло %d чел, зайнято %d/%d місць. Не зайшло %d чел\n", stop2.getSittedPassengers(), transport.getOccupiedPlaces(), transport.getTotalPlaces(), stop2.getPassengers().size());
+                        eventsLog.add(new Event(transport.getCurrentTime(), status));
                     }
 
                     length = routeSegment.getLength();
                     moveTime = transport.getMoveTime();
                 }
-                lastEndTime = transport.getStartTime().plusSeconds((long) transport.getMoveTime());
+                lastEndTime = transport.getCurrentTime();
 
                 transport.setEndTime(lastEndTime);
-                //System.out.printf("%s %d по маршруту №%s пройшов за %s секунд, кінець маршруту о %s\n", transport.getTransportType().name(), transport.getId(), transport.getRouteNumber(), transport.getMoveTime(), lastEndTime);
                 eventsLog.add(new Event(transport.getCurrentTime(), String.format("%s %d по маршруту №%s пройшов за %s секунд, кінець маршруту о %s\n", transport.getTransportType().name(), transport.getId(), transport.getRouteNumber(), transport.getMoveTime(), lastEndTime)));
                 transport.cleanMoveTime();
                 transport.addTripCount();
+
+                LocalTime newStartTime;
+
+                if(transportListIterator.previousIndex()!=0){
+                    Transport previousTransport = transportList.get(transportListIterator.previousIndex()-1);
+                    newStartTime = previousTransport.getStartTime().plusMinutes(minutesPeriod);
+                }
+                else{
+                    newStartTime = transportList.getLast().getStartTime().plusMinutes(minutesPeriod);
+                }
+                transport.setStartTime(newStartTime);
 
                 if(lastEndTime.isAfter(endTime)) {
                     timeIsOver = true;
@@ -125,10 +122,10 @@ public class Modeling {
 
     //private void
 
-    private List<Transport> transportData() {
-        List<Transport> transportList = new ArrayList<>();
-        //LocalTime startTime = LocalTime.parse("06:00");
-        //long minutesPeriod = 10;
+    private LinkedList<Transport> transportData() {
+        LinkedList<Transport> transportList = new LinkedList<>();
+        LocalTime startTime = LocalTime.parse("06:00");
+        long minutesPeriod = 10;
 
         for (int i = 1; i <= 4; i++) {
             Transport marshrutka = new Transport();
@@ -139,6 +136,8 @@ public class Modeling {
             marshrutka.setStatus(Transport.Status.OnStop);
             marshrutka.setTransportType(Transport.Type.Microbus);
             marshrutka.setPassengers(new ArrayList<>());
+            marshrutka.setStartTime(startTime);
+            startTime = startTime.plusMinutes(minutesPeriod);
             //marshrutka.setStartTime(startTime);
             //startTime = startTime.plusMinutes(minutesPeriod);
             //System.out.println(marshrutka.getStartTime());
