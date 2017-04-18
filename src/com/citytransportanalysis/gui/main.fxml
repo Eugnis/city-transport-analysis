@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<VBox xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.citytransportanalysis.gui.Controller">
+    <children>
+        <MenuBar>
+            <menus>
+                <Menu mnemonicParsing="false" text="Файл">
+                    <items>
+                        <MenuItem mnemonicParsing="false" text="Закрити"/>
+                    </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Edit">
+                    <items>
+                        <MenuItem mnemonicParsing="false" text="Delete"/>
+                    </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Help">
+                    <items>
+                        <MenuItem mnemonicParsing="false" text="About"/>
+                    </items>
+                </Menu>
+            </menus>
+        </MenuBar>
+        <AnchorPane prefHeight="104.0" prefWidth="1178.0">
+            <children>
+                <Button fx:id="button" layoutX="98.0" layoutY="31.0" mnemonicParsing="false" onAction="#buttonClicked"
+                        text="Моделювати"/>
+                <Label fx:id="label" layoutX="24.0" layoutY="24.0" text="dsd"/>
+            </children>
+        </AnchorPane>
+        <HBox prefHeight="579.0" prefWidth="1178.0">
+            <children>
+                <SplitPane dividerPositions="0.1717687074829932" prefHeight="579.0" prefWidth="1189.0">
+                    <items>
+                        <ListView fx:id="stopListView" maxWidth="199.0" prefHeight="577.0" prefWidth="199.0"/>
+                        <TableView fx:id="logTable" prefHeight="577.0" prefWidth="247.0">
+                            <columns>
+                                <TableColumn prefWidth="75.0" text="Time"/>
+                                <TableColumn prefWidth="504.0" text="Log"/>
+                            </columns>
+                            <opaqueInsets>
+                                <Insets/>
+                            </opaqueInsets>
+                        </TableView>
+                    </items>
+                </SplitPane>
+                <Accordion>
+                    <panes>
+                        <TitledPane text="Діаграми">
+                            <content>
+                                <AnchorPane>
+                                    <children>
+                                        <LineChart layoutX="248.0" layoutY="14.0" prefHeight="206.0" prefWidth="336.0">
+                                            <xAxis>
+                                                <CategoryAxis side="BOTTOM"/>
+                                            </xAxis>
+                                            <yAxis>
+                                                <NumberAxis side="LEFT"/>
+                                            </yAxis>
+                                        </LineChart>
+                                        <AreaChart layoutX="274.0" layoutY="220.0" prefHeight="227.0" prefWidth="314.0">
+                                            <xAxis>
+                                                <CategoryAxis side="BOTTOM"/>
+                                            </xAxis>
+                                            <yAxis>
+                                                <NumberAxis side="LEFT"/>
+                                            </yAxis>
+                                        </AreaChart>
+                                    </children>
+                                </AnchorPane>
+                            </content>
+                        </TitledPane>
+                        <TitledPane text="Візуалізація">
+                            <content>
+                                <AnchorPane>
+                                    <children>
+                                        <Region layoutX="130.0" layoutY="52.0" prefHeight="425.0" prefWidth="349.0"
+                                                style="-fx-background-color: gray;"/>
+                                    </children>
+                                </AnchorPane>
+                            </content>
+                        </TitledPane>
+                    </panes>
+                </Accordion>
+            </children>
+        </HBox>
+    </children>
+</VBox>

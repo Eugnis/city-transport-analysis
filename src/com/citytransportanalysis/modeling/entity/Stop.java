@@ -139,4 +139,8 @@ public class Stop {
     private void setSittedPassengers(int sittedPassengers) {
         this.sittedPassengers = sittedPassengers;
     }
+
+    public String toString() {
+        return this.getName();
+    }
 }
