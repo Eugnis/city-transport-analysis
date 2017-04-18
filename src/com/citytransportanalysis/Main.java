@@ -37,7 +37,7 @@ public class Main extends Application {
         modeling.Launch(routeSegments, transportList, startTime, endTime);  //запуск моделирования
 
         //вывод текстового лога в консоль
-        //Collections.sort(eventsLog, Comparator.comparing(Event::getTime));    //сортировка лога по времени
+        //Collections.sort(modeling.eventsLog, Comparator.comparing(Event::getTime));    //сортировка лога по времени
 
         for (Modeling.Event event : modeling.eventsLog) {     //сам вывод лога в консоль построчно
             System.out.printf(event.toString());
