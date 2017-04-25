@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.chart.*?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.LineChart?>
+<?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<VBox xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1"
+<?import javafx.scene.text.TextFlow?>
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="801.0" prefWidth="1306.0"
+      xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="com.citytransportanalysis.gui.Controller">
     <children>
         <MenuBar>
@@ -26,67 +30,125 @@
                 </Menu>
             </menus>
         </MenuBar>
-        <AnchorPane prefHeight="104.0" prefWidth="1178.0">
+        <AnchorPane prefHeight="190.0" prefWidth="1178.0">
             <children>
-                <Button fx:id="button" layoutX="98.0" layoutY="31.0" mnemonicParsing="false" onAction="#buttonClicked"
-                        text="Моделювати"/>
-                <Label fx:id="label" layoutX="24.0" layoutY="24.0" text="dsd"/>
+                <Button fx:id="button" layoutX="15.0" layoutY="116.0" mnemonicParsing="false" onAction="#buttonClicked"
+                        prefHeight="52.0" prefWidth="227.0" text="Моделювати"/>
+                <Spinner fx:id="transportCountSpinner" editable="true" layoutX="130.0" layoutY="33.0" prefHeight="25.0"
+                         prefWidth="62.0">
+                    <valueFactory>
+                        <SpinnerValueFactory.IntegerSpinnerValueFactory max="100" min="1"/>
+                    </valueFactory>
+                </Spinner>
+                <Label fx:id="label1" layoutX="14.0" layoutY="37.0" text="Кількість транспорту"/>
+                <Label fx:id="label11" layoutX="14.0" layoutY="74.0" text="Час руху"/>
+                <TextField fx:id="timeFromTextField" layoutX="66.0" layoutY="70.0" prefHeight="25.0" prefWidth="48.0"
+                           text="06:00"/>
+                <Label fx:id="label111" layoutX="121.0" layoutY="74.0" text="по"/>
+                <TextField fx:id="timeToTextField" layoutX="140.0" layoutY="70.0" prefHeight="25.0" prefWidth="48.0"
+                           text="22:00"/>
+                <Label fx:id="label112" layoutX="201.0" layoutY="37.0" text="Період"/>
+                <Label fx:id="label1111" layoutX="308.0" layoutY="37.0" text="хв."/>
+                <Spinner fx:id="periodSpinner" editable="true" layoutX="240.0" layoutY="33.0" prefHeight="25.0"
+                         prefWidth="62.0">
+                    <valueFactory>
+                        <SpinnerValueFactory.IntegerSpinnerValueFactory max="100" min="1"/>
+                    </valueFactory>
+                </Spinner>
             </children>
         </AnchorPane>
         <HBox prefHeight="579.0" prefWidth="1178.0">
             <children>
-                <SplitPane dividerPositions="0.1717687074829932" prefHeight="579.0" prefWidth="1189.0">
-                    <items>
-                        <ListView fx:id="stopListView" maxWidth="199.0" prefHeight="577.0" prefWidth="199.0"/>
-                        <TableView fx:id="logTable" prefHeight="577.0" prefWidth="247.0">
-                            <columns>
-                                <TableColumn prefWidth="75.0" text="Time"/>
-                                <TableColumn prefWidth="504.0" text="Log"/>
-                            </columns>
-                            <opaqueInsets>
-                                <Insets/>
-                            </opaqueInsets>
-                        </TableView>
-                    </items>
-                </SplitPane>
-                <Accordion>
-                    <panes>
-                        <TitledPane text="Діаграми">
-                            <content>
-                                <AnchorPane>
+                <HBox>
+                    <children>
+                        <SplitPane dividerPositions="0.3568904593639576" prefHeight="579.0" prefWidth="742.0">
+                            <items>
+                                <SplitPane dividerPositions="0.5" orientation="VERTICAL" prefHeight="200.0"
+                                           prefWidth="160.0">
+                                    <items>
+                                        <VBox>
+                                            <children>
+                                                <Button fx:id="resetFilter" mnemonicParsing="false"
+                                                        onAction="#resetFilterClicked" prefHeight="25.0"
+                                                        prefWidth="200.0" text="Зброс фільтру"/>
+                                                <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                                                    <children>
+                                                        <Label alignment="CENTER" prefHeight="21.0" prefWidth="199.0"
+                                                               text="Зупинки" textAlignment="CENTER"/>
+                                                    </children>
+                                                </AnchorPane>
+                                                <ListView fx:id="stopListView" maxWidth="199.0" prefHeight="577.0"
+                                                          prefWidth="331.0"/>
+                                            </children>
+                                        </VBox>
+                                        <VBox>
+                                            <children>
+                                                <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                                                    <children>
+                                                        <Label alignment="CENTER" prefHeight="21.0" prefWidth="199.0"
+                                                               text="Транспорт" textAlignment="CENTER"/>
+                                                    </children>
+                                                </AnchorPane>
+                                                <ListView fx:id="transportListView" maxWidth="199.0" prefHeight="577.0"
+                                                          prefWidth="331.0"/>
+                                            </children>
+                                        </VBox>
+                                    </items>
+                                </SplitPane>
+                                <VBox>
                                     <children>
-                                        <LineChart layoutX="248.0" layoutY="14.0" prefHeight="206.0" prefWidth="336.0">
+                                        <AnchorPane prefHeight="113.0" prefWidth="535.0">
+                                            <children>
+                                                <TextFlow fx:id="textFlowStationInfo" prefHeight="107.0"
+                                                          prefWidth="535.0"/>
+                                            </children>
+                                        </AnchorPane>
+                                        <TableView fx:id="logTable" prefHeight="482.0" prefWidth="535.0">
+                                            <columns>
+                                                <TableColumn prefWidth="75.0" text="Time"/>
+                                                <TableColumn prefWidth="504.0" text="Log"/>
+                                            </columns>
+                                            <opaqueInsets>
+                                                <Insets/>
+                                            </opaqueInsets>
+                                        </TableView>
+                                    </children>
+                                </VBox>
+                            </items>
+                        </SplitPane>
+                    </children>
+                </HBox>
+                <TabPane prefHeight="579.0" prefWidth="560.0" tabClosingPolicy="UNAVAILABLE">
+                    <tabs>
+                        <Tab text="Статистика">
+                            <content>
+                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                    <children>
+                                        <LineChart fx:id="lineChart" layoutX="1.0" layoutY="-2.0" prefHeight="264.0"
+                                                   prefWidth="560.0" title="Заповненість транспорту">
                                             <xAxis>
-                                                <CategoryAxis side="BOTTOM"/>
+                                                <CategoryAxis fx:id="timeAxis" label="Час" side="BOTTOM"/>
                                             </xAxis>
                                             <yAxis>
-                                                <NumberAxis side="LEFT"/>
+                                                <NumberAxis fx:id="passengersAxis" label="Пасажири" side="LEFT"/>
                                             </yAxis>
                                         </LineChart>
-                                        <AreaChart layoutX="274.0" layoutY="220.0" prefHeight="227.0" prefWidth="314.0">
-                                            <xAxis>
-                                                <CategoryAxis side="BOTTOM"/>
-                                            </xAxis>
-                                            <yAxis>
-                                                <NumberAxis side="LEFT"/>
-                                            </yAxis>
-                                        </AreaChart>
                                     </children>
                                 </AnchorPane>
                             </content>
-                        </TitledPane>
-                        <TitledPane text="Візуалізація">
+                        </Tab>
+                        <Tab text="Візуалізація">
                             <content>
-                                <AnchorPane>
+                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                     <children>
-                                        <Region layoutX="130.0" layoutY="52.0" prefHeight="425.0" prefWidth="349.0"
+                                        <Region layoutX="-1.0" layoutY="-28.0" prefHeight="577.0" prefWidth="438.0"
                                                 style="-fx-background-color: gray;"/>
                                     </children>
                                 </AnchorPane>
                             </content>
-                        </TitledPane>
-                    </panes>
-                </Accordion>
+                        </Tab>
+                    </tabs>
+                </TabPane>
             </children>
         </HBox>
     </children>

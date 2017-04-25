@@ -19,20 +19,20 @@ public class Modeling {
         System.out.println("Modeling init.");
     }
 
-    public void Launch(LinkedList<RouteSegment> routeSegments, LinkedList<Transport> transportList, LocalTime startTime, LocalTime endTime) {
+    public void Launch(LinkedList<RouteSegment> routeSegments, LinkedList<Transport> transportList, LocalTime startTime, LocalTime endTime, long minutesPeriod) {
         System.out.println("Modeling started...");
         eventsLog = new ArrayList<>();
 
-        Movement(routeSegments, transportList, startTime, endTime);
+        Movement(routeSegments, transportList, startTime, endTime, minutesPeriod);
 
         System.out.println("Modeling finished.");
     }
 
-    private void Movement(LinkedList<RouteSegment> routeSegments, LinkedList<Transport> transportList, LocalTime startTime, LocalTime endTime) {
+    private void Movement(LinkedList<RouteSegment> routeSegments, LinkedList<Transport> transportList, LocalTime startTime, LocalTime endTime, long minutesPeriod) {
         double moveTime = 0;
         double length = 0;
 
-        long minutesPeriod = 10;                            //период подхода нового транспорта в минутах
+        //long minutesPeriod = 10;                            //период подхода нового транспорта в минутах
 
         //LocalTime currentTime = startTime;
         LocalTime lastEndTime = startTime;
@@ -108,6 +108,7 @@ public class Modeling {
         for (Transport transport : transportList) {
             System.out.printf("%s %d по маршруту №%s проходив шлях %d разів і перевіз %d чел\n",
                     transport.getTransportType().name(), transport.getId(), transport.getRouteNumber(), transport.getTripCount(), transport.getAllPassengersCount());
+            eventsLog.add(new Event(transport.getCurrentTime(), transport, null, null, Event.Type.EndDay));
         }
     }
 
@@ -300,18 +301,40 @@ public class Modeling {
         private Transport transport;
         private RouteSegment routeSegment;
         private Type type;
+        private int filledPlaces;
 
         private SimpleStringProperty textTime;
         private SimpleStringProperty description;
         private SimpleIntegerProperty transportId;
 
+        public Transport getTransport() {
+            return transport;
+        }
+
+        public void setTransport(Transport transport) {
+            this.transport = transport;
+        }
+
+        public Type getType() {
+            return type;
+        }
+
+        public void setType(Type type) {
+            this.type = type;
+        }
+
+        public int getFilledPlaces() {
+            return filledPlaces;
+        }
+
         public enum Type {
-            RouteStart, RouteFinish, OnStop, OnWay, SittingPassenger, GettingOutPassenger
+            RouteStart, RouteFinish, OnStop, OnWay, SittingPassenger, GettingOutPassenger, EndDay
         }
 
         Event(LocalTime time, Transport transport, RouteSegment routeSegment, Stop stop, Type type) {
             this.time = time;
             this.transport = transport;
+            if (type.equals(Type.OnWay)) filledPlaces = transport.getPassengers().size();
             this.routeSegment = routeSegment;
             this.stop = stop;
             this.type = type;

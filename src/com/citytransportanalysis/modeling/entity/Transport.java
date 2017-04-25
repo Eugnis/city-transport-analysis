@@ -151,4 +151,9 @@ public class Transport {
     public int getFreePlaces() {
         return this.getTotalPlaces() - this.getOccupiedPlaces();
     }
+
+    @Override
+    public String toString() {
+        return transportType.toString() + " " + id;
+    }
 }

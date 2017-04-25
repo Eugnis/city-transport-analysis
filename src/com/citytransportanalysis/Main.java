@@ -34,17 +34,17 @@ public class Main extends Application {
          *  Так же с XML файла считывать время начала пути, конца. Пока что все, .
          */
 
-        modeling.Launch(routeSegments, transportList, startTime, endTime);  //запуск моделирования
+        //modeling.Launch(routeSegments, transportList, startTime, endTime, 10);  //запуск моделирования
 
         //вывод текстового лога в консоль
         //Collections.sort(modeling.eventsLog, Comparator.comparing(Event::getTime));    //сортировка лога по времени
 
-        for (Modeling.Event event : modeling.eventsLog) {     //сам вывод лога в консоль построчно
-            System.out.printf(event.toString());
-        }
+        //for (Modeling.Event event : modeling.eventsLog) {     //сам вывод лога в консоль построчно
+        //    System.out.printf(event.toString());
+        //}
 
 
-        //launch(args);     //запустить граф. интерфейс.
+        launch(args);     //запустить граф. интерфейс.
 
         exit();     //завершение проги
     }
