@@ -68,24 +68,8 @@ public class Transport {
         this.transportType = transportType;
     }
 
-    public double getSpeed() {
-        return speed;
-    }
-
-    public void setSpeed(double speed) {
-        this.speed = speed;
-    }
-
-    public int getSeatPlaces() {
-        return seatPlaces;
-    }
-
     public void setSeatPlaces(int seatPlaces) {
         this.seatPlaces = seatPlaces;
-    }
-
-    public int getStandPlaces() {
-        return standPlaces;
     }
 
     public void setStandPlaces(int standPlaces) {
@@ -126,10 +110,6 @@ public class Transport {
 
     public void setStartTime(LocalTime startTime) {
         this.startTime = startTime;
-    }
-
-    public LocalTime getEndTime() {
-        return endTime;
     }
 
     public LocalTime getCurrentTime() {

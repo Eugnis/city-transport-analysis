@@ -12,6 +12,14 @@ public class RouteSegment {
     private double passingTime;
     private double length;
 
+    /**
+     * Сегмент пути
+     *
+     * @param stop1       остановка 1 {@link Stop}
+     * @param stop2       остановка 2 {@link Stop}
+     * @param passingTime время движения по сегменту пути в секундах
+     * @param length      длина пути
+     */
     public RouteSegment(Stop stop1, Stop stop2, double passingTime, double length) {
         this.twoStops = Arrays.asList(stop1, stop2);
         this.passingTime = passingTime;
@@ -22,23 +30,7 @@ public class RouteSegment {
         return twoStops;
     }
 
-    public void setTwoStops(Stop stop1, Stop stop2) {
-        this.twoStops = Arrays.asList(stop1, stop2);
-    }
-
     public double getPassingTime() {
         return passingTime;
-    }
-
-    public void setPassingTime(double passingTime) {
-        this.passingTime = passingTime;
-    }
-
-    public double getLength() {
-        return length;
-    }
-
-    public void setLength(double length) {
-        this.length = length;
     }
 }

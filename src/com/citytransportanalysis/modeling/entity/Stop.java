@@ -15,7 +15,6 @@ public class Stop {
     private LinkedList<Passenger> passengers;
     private Map<LocalTime, Double> passengerComingTime;
     private Map<LocalTime, Double> passengerExitProbability;
-    private LocalTime localTime;
     private double waitTime;
     private LocalTime lastPasengersGeneration;
 
@@ -23,86 +22,59 @@ public class Stop {
     private int gettedOutPassengers;
 
 
+    /**
+     * Остановка
+     *
+     * @param name                     название
+     * @param passengerComingTime      список времени прихода пассажиров для каждого часа {@link Map}<{@link LocalTime}, {@link Double}>
+     * @param passengerExitProbability список вероятности прихода пассажиров для каждого часа {@link Map}<{@link LocalTime}, {@link Double}>
+     * @param waitTime                 время ожидания на остановке
+     */
     public Stop(String name, Map<LocalTime, Double> passengerComingTime, Map<LocalTime, Double> passengerExitProbability, double waitTime) {
         this.name = name;
         this.passengerComingTime = passengerComingTime;
         this.passengerExitProbability = passengerExitProbability;
         this.waitTime = waitTime;
         passengers = new LinkedList<>();
-
-        //this.GeneratePassengers(LocalTime.parse("08:34"));
-        //this.GeneratePassengers(LocalTime.parse("09:34"));
     }
 
     public double getWaitTime() {
         return waitTime;
     }
 
-    public void setWaitTime(double waitTime) {
-        this.waitTime = waitTime;
-    }
-
     public String getName() {
         return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public LinkedList<Passenger> getPassengers() {
         return passengers;
     }
 
-    public void setPassengers(LinkedList<Passenger> passengers) {
-        this.passengers = passengers;
-    }
-
-    public Map<LocalTime, Double> getPassengerComingTime() {
-        return passengerComingTime;
-    }
-
-    public void setPassengerComingTime(Map<LocalTime, Double> passengerComingTime) {
-        this.passengerComingTime = passengerComingTime;
-    }
-
-    public Map<LocalTime, Double> getPassengerExitProbability() {
-        return passengerExitProbability;
-    }
-
-    public void setPassengerExitProbability(Map<LocalTime, Double> passengerExitProbability) {
-        this.passengerExitProbability = passengerExitProbability;
-    }
-
-    public LocalTime getLocalTime() {
-        return localTime;
-    }
-
-    public void setLocalTime(LocalTime localTime) {
-        this.localTime = localTime;
-    }
-
+    /** Генерация пассажиров
+     * @param time текущее время
+     */
     private void GeneratePassengers(LocalTime time){
         Double difference;
         Double comingPeriod;
         LocalTime timeFrom = time.truncatedTo(ChronoUnit.HOURS);
         if (lastPasengersGeneration!=null) {
             difference = (double)Duration.between(lastPasengersGeneration, time).getSeconds();
-        }
-        else{
+        } else{
             difference = (double)time.getMinute() * 60; //difference in seconds from previous hour to current minutes
         }
         comingPeriod = passengerComingTime.get(timeFrom);
         //System.out.printf("%s\n", comingPeriod);
-        for(double i=0; i<=difference; i=i+comingPeriod){
+        for(double i = 0; i<=difference; i=i+comingPeriod){
             passengers.add(new Passenger(this));
         }
         //System.out.printf("Added %s passengers\n", passengers.size());
         lastPasengersGeneration = time;
-
-
     }
 
+    /** Посадка пассажиров в транспорт
+     * @param transport транспорт {@link Transport}
+     * @return список пассажиров в транспорте
+     */
     public List<Passenger> SettingInTransport(Transport transport){
         GeneratePassengers(transport.getCurrentTime());
         int toSit = transport.getFreePlaces();
@@ -116,6 +88,10 @@ public class Stop {
         return transport.getPassengers();
     }
 
+    /** Высадка пассажиров из транспорта
+     * @param transport транспорт {@link Transport}
+     * @return список пассажиров в транспорте
+     */
     public List<Passenger> GettingOutFromTransport(Transport transport){
         Double exitProbability = passengerExitProbability.get(transport.getCurrentTime().truncatedTo(ChronoUnit.HOURS));
         int exitCount = (int) Math.round(transport.getPassengers().size() * exitProbability);
