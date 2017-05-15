@@ -27,11 +27,23 @@ public class Main extends Application {
         LinkedList<RouteSegment> routeSegments = modeling.routeData();      //список участков пути (между двумя остановками)
         LinkedList<Transport> transportList = modeling.transportData(5, 22, 21, startTime, 10);    //список список маршруток (одинаковых), период движения
 
-        /** TODO надо сделать отдельный класс для загрузки начальных данных с XML файла (Вове)
+        /** TODO (Вове) надо сделать отдельный класс для загрузки начальных данных с XML файла
          *  На вход подается имя xml файла
          *  На выходе - 2 списка (LinkedList<RouteSegment> routeSegments и LinkedList<Transport> transportList,
-         *  пример заполнения списков в функциях modeling.routeData() и modeling.transportData(), они сейчас генерируются рандомно)
+         *  пример заполнения списков в функциях {@link Modeling.routeData()} и {@link Modeling.transportData()}, они сейчас генерируются рандомно)
          *  Так же с XML файла считывать время начала пути, конца. Пока что все, .
+         */
+
+        /** TODO (Ире) визуализация
+         *  Вся нужная инфа для визуализации хранится тут List<Event> eventsLog {@link Modeling.eventsLog}
+         *  Там находятся данные по порядку событий начиная с времени старта до конца всего движения (типа 06:00 начало движения, посадка пассажиров и т.д.)
+         *  Так же там есть все участвующие объекты (Transport - текущая маршрутка, Stop - текущая остановка, RouteSegment - сегмент пути от 1 остановки к другой)
+         *
+         *  Граф. интерфейс в папке gui где main.fxml - шаблон формы и управляется она методами в классе {@link com.citytransportanalysis.gui.Controller}
+         *  После нажатия на кнопку запуска моделирования список событий заносится сюда {@link com.citytransportanalysis.gui.Controller.eventsLog}
+         *  Нужно будет использовать его
+         *
+         *  Если есть вопросы, пиши
          */
 
         //modeling.LaunchMovement(routeSegments, transportList, startTime, endTime, 10);  //запуск моделирования

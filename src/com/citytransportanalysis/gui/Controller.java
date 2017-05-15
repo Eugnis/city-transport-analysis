@@ -49,6 +49,9 @@ public class Controller {
     ArrayList<Transport> overUsed;
     ObservableList<String> olist, tlist;
 
+    /** Список событий {@link com.citytransportanalysis.modeling.Modeling.Event}  */
+    private List<Modeling.Event> eventsLog;
+
     private Modeling modeling;
 
     private int totalPlaces;
@@ -197,7 +200,7 @@ public class Controller {
     }
 
 
-    public void buttonClicked(ActionEvent actionEvent) {
+    public void startModellingButtonClicked(ActionEvent actionEvent) {
         /* Тест
         try{gmaps.getEngine().executeScript("calcRoute('Kyiv, Pravdi str', 'Kyiv, Pobedi str');");}
         catch (Exception ignored){}
@@ -217,6 +220,8 @@ public class Controller {
         LinkedList<Transport> transportList = modeling.transportData(transportCount, sitPlacesCount, standPlacesCount, startTime, periodCount);
         modeling.LaunchMovement(routeSegments, transportList, startTime, endTime, periodCount);
         LinkedList<RouteSegment> route = modeling.routeData();
+
+        eventsLog = modeling.eventsLog;
 
         /* Заполнения списка остановок */
         olist = FXCollections.observableArrayList();
