@@ -20,6 +20,8 @@ public class Stop {
 
     private int sittedPassengers;
     private int gettedOutPassengers;
+    private int passengersOnStop;
+    private int passengersLeft;
 
 
     /**
@@ -77,6 +79,7 @@ public class Stop {
      */
     public List<Passenger> SettingInTransport(Transport transport){
         GeneratePassengers(transport.getCurrentTime());
+        passengersOnStop = passengers.size();
         int toSit = transport.getFreePlaces();
         int setted = 0;
         while(toSit>0 && passengers.size()>0){
@@ -84,6 +87,7 @@ public class Stop {
             setted++;
             toSit--;
         }
+        passengersLeft = passengersOnStop - setted;
         this.setSittedPassengers(setted);
         return transport.getPassengers();
     }
@@ -110,6 +114,14 @@ public class Stop {
 
     public int getSittedPassengers() {
         return sittedPassengers;
+    }
+
+    public int getPassengersOnStop() {
+        return passengersOnStop;
+    }
+
+    public int getPassengersLeft() {
+        return passengersLeft;
     }
 
     private void setSittedPassengers(int sittedPassengers) {

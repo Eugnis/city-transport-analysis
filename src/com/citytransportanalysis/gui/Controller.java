@@ -2,6 +2,7 @@ package com.citytransportanalysis.gui;
 
 import com.citytransportanalysis.modeling.Modeling;
 import com.citytransportanalysis.modeling.entity.RouteSegment;
+import com.citytransportanalysis.modeling.entity.Stop;
 import com.citytransportanalysis.modeling.entity.Transport;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -42,11 +43,13 @@ public class Controller {
     public Label percentPlacesCountLabel;
     public TextFlow textFlowStationInfo;
     public Button resetFilter;
-    public LineChart lineChart;
+    public LineChart transportLineChart;
+    public LineChart stopsLineChart;
     public CategoryAxis timeAxis;
     public NumberAxis passengersAxis;
     public WebView gmaps;
-    ArrayList<Transport> overUsed;
+    ArrayList<Transport> overUsedTransport;
+    ArrayList<Stop> overUsedStops;
     ObservableList<String> olist, tlist;
 
     /** Список событий {@link com.citytransportanalysis.modeling.Modeling.Event}  */
@@ -127,15 +130,12 @@ public class Controller {
                         if (b) {
                             setText(null);
                             setGraphic(null);
-                        }
-                        if (s != null && s.contains("1")) {
+                            setStyle(null);
+                        } else if (s != null && overUsedStops.stream().filter(stop -> stop.getName().equals(s)).count() > 0) {
                             setStyle("-fx-background-color: red");
-                            //setGraphic(your graphics);
                             setText(s);
-                        }
-                        if (s != null) {
-                            //setStyle("-fx-background-color: red");
-                            //setGraphic(your graphics);
+                        } else if (s != null) {
+                            setStyle(null);
                             setText(s);
                         }
                     }
@@ -179,16 +179,12 @@ public class Controller {
                         if (b) {
                             setText(null);
                             setGraphic(null);
-                        }
-
-                        if (s != null && overUsed.stream().filter(transport -> transport.toString().equals(s)).count() > 0) {
+                            setStyle(null);
+                        } else if (s != null && overUsedTransport.stream().filter(transport -> transport.toString().equals(s)).count() > 0) {
                             setStyle("-fx-background-color: red");
-                            //setGraphic(your graphics);
                             setText(s);
-                        }
-                        if (s != null) {
-                            //setStyle("-fx-background-color: red");
-                            //setGraphic(your graphics);
+                        } else if (s != null) {
+                            setStyle(null);
                             setText(s);
                         }
                     }
@@ -198,6 +194,7 @@ public class Controller {
         });     // отмечает транспорт не подходящие по требованиям
         gmaps.getEngine().load(getClass().getResource("/gmaps/index.html").toExternalForm());
     }
+
 
 
     public void startModellingButtonClicked(ActionEvent actionEvent) {
@@ -224,11 +221,16 @@ public class Controller {
         eventsLog = modeling.eventsLog;
 
         /* Заполнения списка остановок */
-        olist = FXCollections.observableArrayList();
+        LinkedList<Stop> stopsList = new LinkedList<>();
         for (RouteSegment r : route)
-            if (r == route.getFirst())
-                olist.addAll(r.getTwoStops().get(0).getName(), r.getTwoStops().get(1).getName());
-            else olist.add(r.getTwoStops().get(1).getName());
+            if (r == route.getFirst()) {
+                stopsList.add(r.getTwoStops().get(0));
+                stopsList.add(r.getTwoStops().get(1));
+            } else stopsList.add(r.getTwoStops().get(1));
+
+        olist = FXCollections.observableArrayList();
+        for (Stop s : stopsList)
+            olist.add(s.getName());
         stopListView.setItems(olist);
 
         /* Заполнения списка транспорта */
@@ -242,11 +244,12 @@ public class Controller {
                 !event.getType().equals(Modeling.Event.Type.EndDay)).collect(Collectors.toList()));
         initTable(data);
 
-        overUsed = new ArrayList<Transport>();
+        overUsedTransport = new ArrayList<>();
+        overUsedStops = new ArrayList<>();
 
         /* Заполнение графика заполненности транспорта */
-        lineChart.getData().clear();
-        lineChart.getXAxis().setAnimated(false);
+        transportLineChart.getData().clear();
+        transportLineChart.getXAxis().setAnimated(false);
         for (Transport t : transportList) {
             XYChart.Series series = new XYChart.Series();
             series.setName(t.toString());
@@ -260,14 +263,43 @@ public class Controller {
                 if (curEvents.size() != 0) {
                     Modeling.Event curEvent = Collections.max(curEvents, Comparator.comparing(Modeling.Event::getFilledPlaces));
                     series.getData().add(new XYChart.Data<>(curTime.toString(), curEvent.getFilledPlaces()));
-                    if (curEvent.getFilledPlaces() >= percentPlaces)
-                        if (!overUsed.contains(curEvent.getTransport()))
-                            overUsed.add(curEvent.getTransport());
+                    if (curEvent.getFilledPlaces() > percentPlaces)
+                        if (!overUsedTransport.contains(curEvent.getTransport()))
+                            overUsedTransport.add(curEvent.getTransport());
                 }
                 curTime = curTime.plusHours(1);
             } while (curTime.isBefore(endTime));
-            lineChart.getData().add(series);
+            transportLineChart.getData().add(series);
         }
+
+        /* Заполнение графика заполненности остановок */
+        stopsLineChart.getData().clear();
+        stopsLineChart.getXAxis().setAnimated(false);
+        for (Stop s : stopsList) {
+            XYChart.Series series = new XYChart.Series();
+            series.setName(s.getName());
+            LocalTime curTime = startTime;
+            do {
+                final int hours = curTime.getHour();
+                List<Modeling.Event> curEvents = modeling.eventsLog.stream().filter(event ->
+                        event.getType().equals(Modeling.Event.Type.OnStop) &&
+                                event.getStop().getName().equals(s.getName()) &&
+                                event.getTime().getHour() == hours).collect(Collectors.toList());
+                if (curEvents.size() != 0) {
+                    Modeling.Event curEvent = Collections.max(curEvents, Comparator.comparing(Modeling.Event::getPassengersOnStop));
+                    series.getData().add(new XYChart.Data<>(curTime.toString(), curEvent.getPassengersOnStop()));
+                    if (curEvent.getPassengersLeft() > 0)
+                        if (!overUsedStops.contains(curEvent.getStop()))
+                            overUsedStops.add(curEvent.getStop());
+                }
+                curTime = curTime.plusHours(1);
+            } while (curTime.isBefore(endTime));
+            stopsLineChart.getData().add(series);
+        }
+
+        /* Обновляем списки транспорта и остановок с подсветкой */
+        transportListView.refresh();
+        stopListView.refresh();
 
     }
 

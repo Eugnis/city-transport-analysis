@@ -308,6 +308,8 @@ public class Modeling {
         private RouteSegment routeSegment;
         private Type type;
         private int filledPlaces;
+        private int passengersOnStop;
+        private int passengersLeft;
 
         private SimpleStringProperty textTime;
         private SimpleStringProperty description;
@@ -326,6 +328,20 @@ public class Modeling {
          */
         public int getFilledPlaces() {
             return filledPlaces;
+        }
+
+        /**
+         * @return число пассажиров на остановке во время подъезда транспорта
+         */
+        public int getPassengersOnStop() {
+            return passengersOnStop;
+        }
+
+        /**
+         * @return число пассажиров не влезших в транспорт
+         */
+        public int getPassengersLeft() {
+            return passengersLeft;
         }
 
         /**
@@ -374,6 +390,10 @@ public class Modeling {
             this.time = time;
             this.transport = transport;
             if (type.equals(Type.OnWay)) filledPlaces = transport.getPassengers().size();
+            if (type.equals(Type.OnStop)) {
+                passengersOnStop = stop.getPassengersOnStop();
+                passengersLeft = stop.getPassengersLeft();
+            }
             this.routeSegment = routeSegment;
             this.stop = stop;
             this.type = type;
