@@ -160,7 +160,7 @@
                            <content>
                                       <AnchorPane prefHeight="200.0" prefWidth="200.0">
                                           <children>
-                                              <LineChart fx:id="transportLineChart" prefHeight="327.0" prefWidth="542.0" title="Заповненість транспорту">
+                                              <LineChart fx:id="transportLineChart" prefHeight="327.0" prefWidth="544.0" title="Заповненість транспорту" AnchorPane.rightAnchor="-2.0">
                                                   <xAxis>
                                                       <CategoryAxis fx:id="timeAxis" label="Час" side="BOTTOM" />
                                                   </xAxis>
@@ -168,7 +168,7 @@
                                                       <NumberAxis fx:id="passengersAxis" label="Пасажири" side="LEFT" />
                                                   </yAxis>
                                               </LineChart>
-                                              <LineChart fx:id="stopsLineChart" layoutX="-2.0" layoutY="340.0" prefHeight="775.0" prefWidth="544.0" title="Заповненість зупинок">
+                                              <LineChart fx:id="stopsLineChart" layoutX="-2.0" layoutY="340.0" maxHeight="1.7976931348623157E308" minHeight="600.0" prefHeight="1000.0" prefWidth="544.0" title="Заповненість зупинок" AnchorPane.rightAnchor="0.0">
                                                   <xAxis>
                                                       <CategoryAxis fx:id="timeAxis1" label="Час" side="BOTTOM" />
                                                   </xAxis>
