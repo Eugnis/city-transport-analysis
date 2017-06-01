@@ -168,7 +168,7 @@
                                                       <NumberAxis fx:id="passengersAxis" label="Пасажири" side="LEFT" />
                                                   </yAxis>
                                               </LineChart>
-                                              <LineChart fx:id="stopsLineChart" layoutX="-2.0" layoutY="340.0" maxHeight="1.7976931348623157E308" minHeight="600.0" prefHeight="1000.0" prefWidth="544.0" title="Заповненість зупинок" AnchorPane.rightAnchor="0.0">
+                                              <LineChart fx:id="stopsLineChart" layoutY="345.0" maxHeight="1.7976931348623157E308" minHeight="321.0" prefHeight="362.0" prefWidth="535.0" title="Заповненість зупинок" AnchorPane.rightAnchor="7.0">
                                                   <xAxis>
                                                       <CategoryAxis fx:id="timeAxis1" label="Час" side="BOTTOM" />
                                                   </xAxis>

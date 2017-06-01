@@ -277,7 +277,9 @@ public class Controller {
         stopsLineChart.getXAxis().setAnimated(false);
         for (Stop s : stopsList) {
             XYChart.Series series = new XYChart.Series();
-            series.setName(s.getName());
+            String cuttedStr = s.getName().substring(0, Math.min(s.getName().length(), 12));
+            if(!cuttedStr.equals(s.getName())) cuttedStr += ".";
+            series.setName(cuttedStr);
             LocalTime curTime = startTime;
             do {
                 final int hours = curTime.getHour();
