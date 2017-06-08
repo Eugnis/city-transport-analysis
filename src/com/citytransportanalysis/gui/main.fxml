@@ -125,7 +125,7 @@
                                       <children>
                                           <AnchorPane prefHeight="113.0" prefWidth="535.0">
                                               <children>
-                                                  <TextFlow fx:id="textFlowStationInfo" prefHeight="107.0" prefWidth="535.0" />
+                                                  <TextFlow fx:id="textFlowStationInfo" textAlignment="CENTER" style="-fx-font-size: 18" prefHeight="107.0" prefWidth="535.0" />
                                               </children>
                                           </AnchorPane>
                                           <TableView fx:id="logTable" prefHeight="482.0" prefWidth="535.0">
