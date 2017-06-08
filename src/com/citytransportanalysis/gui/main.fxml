@@ -94,7 +94,7 @@
                                 <Label fx:id="percentPlacesCountLabel" layoutX="610.0" layoutY="138.0" text="Label" />
                             </children>
                         </AnchorPane>
-                          <SplitPane dividerPositions="0.3568904593639576" prefHeight="579.0" prefWidth="742.0">
+                          <SplitPane fx:id="logSplitPane" dividerPositions="0.3568904593639576" prefHeight="579.0" prefWidth="742.0">
                               <items>
                                   <SplitPane dividerPositions="0.5" maxWidth="-Infinity" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0">
                                       <items>
@@ -125,7 +125,7 @@
                                       <children>
                                           <AnchorPane prefHeight="113.0" prefWidth="535.0">
                                               <children>
-                                                  <TextFlow fx:id="textFlowStationInfo" textAlignment="CENTER" style="-fx-font-size: 18" prefHeight="107.0" prefWidth="535.0" />
+                                                  <TextFlow fx:id="textFlowStationInfo" prefHeight="107.0" prefWidth="535.0" style="-fx-font-size: 18" textAlignment="CENTER" />
                                               </children>
                                           </AnchorPane>
                                           <TableView fx:id="logTable" prefHeight="482.0" prefWidth="535.0">
@@ -143,7 +143,7 @@
                           </SplitPane>
                     </children>
                 </VBox>
-                <TabPane prefHeight="579.0" prefWidth="560.0" tabClosingPolicy="UNAVAILABLE">
+                <TabPane fx:id="visualTabPane" prefHeight="579.0" prefWidth="560.0" tabClosingPolicy="UNAVAILABLE">
                     <tabs>
                         <Tab text="Візуалізація">
                             <content>
