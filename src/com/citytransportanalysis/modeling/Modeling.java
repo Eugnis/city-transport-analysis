@@ -11,11 +11,13 @@ import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 
 /**
- * Modeling class for modeling all that shit.
+ * Modeling class for modeling all.
  */
 public class Modeling {
-
-    public List<Event> eventsLog;       // список событий
+    /**
+     * список событий
+     */
+    public List<Event> eventsLog;
     public Modeling() {
         System.out.println("Modeling init.");
         eventsLog = new ArrayList<>();

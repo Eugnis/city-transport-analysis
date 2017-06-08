@@ -26,9 +26,11 @@ import java.util.stream.Collectors;
 /**
  * GUI main controller
  */
-public class Controller {
+public class Controller extends Modeling{
+    /**
+     * Объекты с шаблона main.fxml
+     */
     public Button button;
-    //public Label label;
     public TableView logTable;
     public ListView<String> stopListView;
     public ListView<String> transportListView;
@@ -48,22 +50,42 @@ public class Controller {
     public CategoryAxis timeAxis;
     public NumberAxis passengersAxis;
     public WebView gmaps;
-    ArrayList<Transport> overUsedTransport;
-    ArrayList<Stop> overUsedStops;
-    ObservableList<String> olist, tlist;
+    public SplitPane logSplitPane;
+    public TabPane visualTabPane;
 
-    /** Список событий {@link com.citytransportanalysis.modeling.Modeling.Event}  */
-    private List<Modeling.Event> eventsLog;
+    /**
+     *  списки вынесены на глобальный уровень чтоб данные были доступны из функций графика
+     */
+    private LinkedList<RouteSegment> routeSegmentsList;
+    private LinkedList<Transport> transportList;
+    private LinkedList<Stop> stopsList;
 
-    private Modeling modeling;
+    private ArrayList<Transport> overUsedTransport;
+    private ArrayList<Stop> overUsedStops;
+    private ObservableList<String> olist, tlist;
 
+    /** Список событий: переменная {@link Modeling.eventsLog} доступна всегда,
+     * так как "public class Controller extends Modeling"*/
+
+    //private Modeling modeling;
+
+    @SuppressWarnings("JavadocReference")
     private int totalPlaces;
     private int percentPlaces;
 
+    private LocalTime chosenStartTime, chosenEndTime;
+
     public void initialize() {
         /* Стартовые значения */
+        logSplitPane.setDisable(true);
+        visualTabPane.setDisable(true);
+        Label placeHolder = new Label("Натисніть \"Моделювати\" для відображення статистики");
+        placeHolder.setStyle("-fx-font-size: 18");
+        logTable.setPlaceholder(placeHolder);
         timeFromTextField.setText("06:00");     // Начальное время
+        chosenStartTime = LocalTime.parse("06:00");
         timeToTextField.setText("22:00");       // Конец движения
+        chosenEndTime = LocalTime.parse("22:00");
         transportCountSpinner.getValueFactory().setValue(5);    //Кол-во транспорта
         periodSpinner.getValueFactory().setValue(10);       // Период движения в минутах
         transportPlacesSit.getValueFactory().setValue(22);    //Сидячих мест
@@ -74,51 +96,64 @@ public class Controller {
         totalPlacesCountLabel.setText(Integer.toString(totalPlaces));
         percentPlaces = (int) ((totalPlaces * (maxPercentPlaces.getValueFactory().getValue() / 100.0)) + 0.5);
         percentPlacesCountLabel.setText(Integer.toString(percentPlaces));
-
+        /*
+         *  Пересчет количества мест в транспорте при изменении ползунков
+         */
         transportPlacesStand.valueProperty().addListener(((observable, oldValue, newValue) -> {
             totalPlaces = transportPlacesSit.getValueFactory().getValue() + transportPlacesStand.getValueFactory().getValue();
             totalPlacesCountLabel.setText(Integer.toString(totalPlaces));
             percentPlaces = (int) ((totalPlaces * (maxPercentPlaces.getValueFactory().getValue() / 100.0)) + 0.5);
             percentPlacesCountLabel.setText(Integer.toString(percentPlaces));
         }));
-
+        /*
+         *  Пересчет количества мест в транспорте при изменении ползунков
+         */
         transportPlacesSit.valueProperty().addListener(((observable, oldValue, newValue) -> {
             totalPlaces = transportPlacesSit.getValueFactory().getValue() + transportPlacesStand.getValueFactory().getValue();
             totalPlacesCountLabel.setText(Integer.toString(totalPlaces));
             percentPlaces = (int) ((totalPlaces * (maxPercentPlaces.getValueFactory().getValue() / 100.0)) + 0.5);
             percentPlacesCountLabel.setText(Integer.toString(percentPlaces));
         }));
-
+        /*
+         *  Пересчет процента мест в транспорте при изменении ползунков
+         */
         maxPercentPlaces.valueProperty().addListener(((observable, oldValue, newValue) -> {
             percentPlaces = (int) ((totalPlaces * (maxPercentPlaces.getValueFactory().getValue() / 100.0)) + 0.5);
             percentPlacesCountLabel.setText(Integer.toString(percentPlaces));
             transportListView.setItems(null);
             transportListView.setItems(tlist);
         }));
-
+        /*
+         *  Фильтрация лога и графика для выбранной остановки
+         */
         stopListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
-                //System.out.println("Selected item: " + newValue);
-                Text text1 = new Text(String.format("Інформація про зупинку %s\n", newValue));
-                text1.setFill(Color.RED);
                 int passengersCount = 0;
                 int leftPassengersCount = 0;
-                for (Modeling.Event event : modeling.eventsLog) {
+                for (Modeling.Event event : eventsLog) {
                     if (event.getType() == Modeling.Event.Type.SittingPassenger && newValue.equals(event.getStop().getName())) {
                         passengersCount += event.getStop().getSittedPassengers();
                         leftPassengersCount += event.getStop().getPassengers().size();
                     }
                 }
+
+                Text text1 = new Text(String.format("Інформація про зупинку %s\n", newValue));
+                text1.setFill(Color.RED);
+                //text1.setStyle("-fx-font-size: 18;");
                 Text text2 = new Text(String.format("Пройшло %d пасажирів, не змогло зайти %d пасажирів", passengersCount, leftPassengersCount));
+                //text2.setStyle("-fx-font-size: 18;");
                 textFlowStationInfo.getChildren().clear();
                 textFlowStationInfo.getChildren().addAll(text1, text2);
-                //List<Modeling.Event> events = modeling.eventsLog;
-                //List<Modeling.Event> eventsnew = modeling.eventsLog.stream().filter(u -> u.getStop() != null && u.getStop().getName().equals(newValue.getName())).collect(Collectors.toList());
-                ObservableList<Modeling.Event> data = FXCollections.observableList(modeling.eventsLog.stream().filter(u -> u.getStop() != null && u.getStop().getName().equals(newValue)).collect(Collectors.toList()));
+
+                ObservableList<Modeling.Event> data = FXCollections.observableList(eventsLog.stream().filter(u -> u.getStop() != null && u.getStop().getName().equals(newValue)).collect(Collectors.toList()));
                 initTable(data);
 
+
+                /* Заполнение графика заполненности ВЫБРАННОЙ остановки */
+                fillStopsChart(stopsList.stream().filter(t -> t.toString().equals(newValue)).collect(Collectors.toList()));
+
             }
-        }); //вывод инфы про выбранную остановку
+        });
         stopListView.setCellFactory(new Callback<ListView<String>, ListCell<String>>() {
             @Override
             public ListCell<String> call(ListView<String> stringListView) {
@@ -142,14 +177,17 @@ public class Controller {
                 };
             }
         });     // отмечает остановки не подходящие по требованиям
-
+        /*
+         *  Фильтрация лога и графика для выбранного транспорта
+         */
         transportListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
                 //System.out.println("Selected item: " + newValue);
                 Text text1 = new Text(String.format("Інформація про транспорт %s\n", newValue));
                 text1.setFill(Color.RED);
+                //text1.setStyle("-fx-font-size: 18;");
                 Transport transport = null;
-                for (Modeling.Event event : modeling.eventsLog)
+                for (Modeling.Event event : eventsLog)
                     if (event.getType() == Modeling.Event.Type.EndDay && newValue.equals(event.getTransport().toString())) {
                         transport = event.getTransport();
                         break;
@@ -157,18 +195,20 @@ public class Controller {
 
                 if (transport != null) {
                     Text text2 = new Text(String.format("Проходив шлях %d разів і перевіз %d чел\n", transport.getTripCount(), transport.getAllPassengersCount()));
+                    //text2.setStyle("-fx-font-size: 18;");
                     textFlowStationInfo.getChildren().clear();
                     textFlowStationInfo.getChildren().addAll(text1, text2);
                 }
 
-                //List<Modeling.Event> events = modeling.eventsLog;
-                //List<Modeling.Event> eventsnew = modeling.eventsLog.stream().filter(u -> u.getStop() != null && u.getStop().getName().equals(newValue.getName())).collect(Collectors.toList());
-                ObservableList<Modeling.Event> data = FXCollections.observableList(modeling.eventsLog.stream().filter(u -> u.getTransport() != null && u.getTransport().toString().equals(newValue)).collect(Collectors.toList()));
+                ObservableList<Modeling.Event> data = FXCollections.observableList(eventsLog.stream().filter(u -> u.getTransport() != null && !u.getType().equals(Modeling.Event.Type.EndDay) && u.getTransport().toString().equals(newValue)).collect(Collectors.toList()));
                 initTable(data);
+
+                /* Заполнение графика заполненности ВЫБРАННОГО транспорта */
+                fillTransportsChart(transportList.stream().filter(t -> t.toString().equals(newValue)).collect(Collectors.toList()));
 
 
             }
-        });     //вывод инфы про выбранный транспорт
+        });
         transportListView.setCellFactory(new Callback<ListView<String>, ListCell<String>>() {
             @Override
             public ListCell<String> call(ListView<String> stringListView) {
@@ -205,25 +245,33 @@ public class Controller {
         */
 
         /* Получения данных моделирования */
-        modeling = new Modeling();
-        LocalTime startTime = LocalTime.parse(timeFromTextField.getText());
-        LocalTime endTime = LocalTime.parse(timeToTextField.getText());
-        LinkedList<RouteSegment> routeSegments = modeling.routeData();
+        //modeling = new Modeling();
+        chosenStartTime = LocalTime.parse(timeFromTextField.getText());
+        chosenEndTime = LocalTime.parse(timeToTextField.getText());
+        routeSegmentsList = routeData();
         int transportCount = transportCountSpinner.getValueFactory().getValue();
         int periodCount = periodSpinner.getValueFactory().getValue();
         int sitPlacesCount = transportPlacesSit.getValueFactory().getValue();
         int standPlacesCount = transportPlacesStand.getValueFactory().getValue();
         //System.out.printf("New transport count %d period %d", transportCount, periodCount);
-        LinkedList<Transport> transportList = modeling.transportData(transportCount, sitPlacesCount, standPlacesCount, startTime, periodCount);
-        modeling.LaunchMovement(routeSegments, transportList, startTime, endTime, periodCount);
-        LinkedList<RouteSegment> route = modeling.routeData();
+        transportList = transportData(transportCount, sitPlacesCount, standPlacesCount, chosenStartTime, periodCount);
+        LaunchMovement(routeSegmentsList, transportList, chosenStartTime, chosenEndTime, periodCount);
+        //LinkedList<RouteSegment> route = routeData();
 
-        eventsLog = modeling.eventsLog;
+        //eventsLog = modeling.eventsLog;
 
-        /* Заполнения списка остановок */
-        LinkedList<Stop> stopsList = new LinkedList<>();
-        for (RouteSegment r : route)
-            if (r == route.getFirst()) {
+        /* Выводим результаты в форму */
+        refillDisplayedData();
+
+        logSplitPane.setDisable(false);
+        visualTabPane.setDisable(false);
+    }
+
+    private void refillDisplayedData(){
+                /* Заполнения списка остановок */
+        stopsList = new LinkedList<>();
+        for (RouteSegment r : routeSegmentsList)
+            if (r == routeSegmentsList.getFirst()) {
                 stopsList.add(r.getTwoStops().get(0));
                 stopsList.add(r.getTwoStops().get(1));
             } else stopsList.add(r.getTwoStops().get(1));
@@ -240,77 +288,36 @@ public class Controller {
         transportListView.setItems(tlist);
 
         /* Заполнения списка событий лог */
-        ObservableList<Modeling.Event> data = FXCollections.observableList(modeling.eventsLog.stream().filter(event ->
+        ObservableList<Modeling.Event> data = FXCollections.observableList(eventsLog.stream().filter(event ->
                 !event.getType().equals(Modeling.Event.Type.EndDay)).collect(Collectors.toList()));
         initTable(data);
 
-        overUsedTransport = new ArrayList<>();
-        overUsedStops = new ArrayList<>();
+        /* Выводим общую инфу */
+        Text text1 = new Text(String.format("З %s по %s перевезено %d транспортами всього %d пасажирів.\n",
+                chosenStartTime, chosenEndTime, transportList.size(), transportList.stream().mapToInt(Transport::getAllPassengersCount).sum()));
+        textFlowStationInfo.getChildren().clear();
+        textFlowStationInfo.getChildren().addAll(text1);
 
         /* Заполнение графика заполненности транспорта */
-        transportLineChart.getData().clear();
-        transportLineChart.getXAxis().setAnimated(false);
-        for (Transport t : transportList) {
-            XYChart.Series series = new XYChart.Series();
-            series.setName(t.toString());
-            LocalTime curTime = startTime;
-            do {
-                final int hours = curTime.getHour();
-                List<Modeling.Event> curEvents = modeling.eventsLog.stream().filter(event ->
-                        event.getType().equals(Modeling.Event.Type.OnWay) &&
-                                event.getTransport().equals(t) &&
-                                event.getTime().getHour() == hours).collect(Collectors.toList());
-                if (curEvents.size() != 0) {
-                    Modeling.Event curEvent = Collections.max(curEvents, Comparator.comparing(Modeling.Event::getFilledPlaces));
-                    series.getData().add(new XYChart.Data<>(curTime.toString(), curEvent.getFilledPlaces()));
-                    if (curEvent.getFilledPlaces() > percentPlaces)
-                        if (!overUsedTransport.contains(curEvent.getTransport()))
-                            overUsedTransport.add(curEvent.getTransport());
-                }
-                curTime = curTime.plusHours(1);
-            } while (curTime.isBefore(endTime));
-            transportLineChart.getData().add(series);
-        }
+        fillTransportsChart(transportList);
 
         /* Заполнение графика заполненности остановок */
-        stopsLineChart.getData().clear();
-        stopsLineChart.getXAxis().setAnimated(false);
-        for (Stop s : stopsList) {
-            XYChart.Series series = new XYChart.Series();
-            String cuttedStr = s.getName().substring(0, Math.min(s.getName().length(), 12));
-            if(!cuttedStr.equals(s.getName())) cuttedStr += ".";
-            series.setName(cuttedStr);
-            LocalTime curTime = startTime;
-            do {
-                final int hours = curTime.getHour();
-                List<Modeling.Event> curEvents = modeling.eventsLog.stream().filter(event ->
-                        event.getType().equals(Modeling.Event.Type.OnStop) &&
-                                event.getStop().getName().equals(s.getName()) &&
-                                event.getTime().getHour() == hours).collect(Collectors.toList());
-                if (curEvents.size() != 0) {
-                    Modeling.Event curEvent = Collections.max(curEvents, Comparator.comparing(Modeling.Event::getPassengersOnStop));
-                    series.getData().add(new XYChart.Data<>(curTime.toString(), curEvent.getPassengersOnStop()));
-                    if (curEvent.getPassengersLeft() > 0)
-                        if (!overUsedStops.contains(curEvent.getStop()))
-                            overUsedStops.add(curEvent.getStop());
-                }
-                curTime = curTime.plusHours(1);
-            } while (curTime.isBefore(endTime));
-            stopsLineChart.getData().add(series);
-        }
+        fillStopsChart(stopsList);
 
         /* Обновляем списки транспорта и остановок с подсветкой */
         transportListView.refresh();
         stopListView.refresh();
-
     }
 
     public void resetFilterClicked(ActionEvent actionEvent) {
         stopListView.getSelectionModel().clearSelection();
         transportListView.getSelectionModel().clearSelection();
-        ObservableList<Modeling.Event> data = FXCollections.observableList(modeling.eventsLog.stream().filter(event ->
+        ObservableList<Modeling.Event> data = FXCollections.observableList(eventsLog.stream().filter(event ->
                 !event.getType().equals(Modeling.Event.Type.EndDay)).collect(Collectors.toList()));
         initTable(data);
+
+        /* Выводим результаты в форму */
+        refillDisplayedData();
     }
 
 
@@ -324,10 +331,73 @@ public class Controller {
         descrCol.setCellValueFactory(new PropertyValueFactory("description"));
 
         logTable.getColumns().setAll(timeCol, idCol, descrCol);
-        //logTable.setPrefWidth(450);
-        //logTable.setPrefHeight(300);
-        //logTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+    }
 
+    private void fillStopsChart(List<Stop> stopsList){
+        /* Заполнение графика заполненности остановок */
+        overUsedStops = new ArrayList<>();
+        stopsLineChart.getData().clear();
+        stopsLineChart.getXAxis().setAnimated(false);
+        boolean shortNames = stopsList.size()>1;
+        for (Stop s : stopsList) {
+            XYChart.Series series = new XYChart.Series();
+            if(shortNames){
+                String cuttedStr = s.getName().substring(0, Math.min(s.getName().length(), 12));
+                if(!cuttedStr.equals(s.getName())) cuttedStr += ".";
+                series.setName(cuttedStr);
+            }
+            else series.setName(s.getName());
+            LocalTime curTime = chosenStartTime;
+            do {
+                final int hours = curTime.getHour();
+                List<Modeling.Event> curEvents = eventsLog.stream().filter(event ->
+                        event.getType().equals(Modeling.Event.Type.OnStop) &&
+                                event.getStop().getName().equals(s.getName()) &&
+                                event.getTime().getHour() == hours).collect(Collectors.toList());
+                if (curEvents.size() != 0) {
+                    Modeling.Event curEvent = Collections.max(curEvents, Comparator.comparing(Modeling.Event::getPassengersOnStop));
+                    series.getData().add(new XYChart.Data<>(curTime.toString(), curEvent.getPassengersOnStop()));
+                    if (curEvent.getPassengersLeft() > 0)
+                        if (!overUsedStops.contains(curEvent.getStop()))
+                            overUsedStops.add(curEvent.getStop());
+                }
+                curTime = curTime.plusHours(1);
+            } while (curTime.isBefore(chosenEndTime));
+            stopsLineChart.getData().add(series);
+        }
+    }
 
+    private void fillTransportsChart(List<Transport> transportList){
+        /* Заполнение графика заполненности транспорта */
+        overUsedTransport = new ArrayList<>();
+        transportLineChart.getData().clear();
+        transportLineChart.getXAxis().setAnimated(false);
+        boolean shortNames = transportList.size()>1;
+        for (Transport t : transportList) {
+            XYChart.Series series = new XYChart.Series();
+            if(shortNames){
+                String cuttedStr = t.toString().substring(0, Math.min(t.toString().length(), 12));
+                if(!cuttedStr.equals(t.toString())) cuttedStr += ".";
+                series.setName(cuttedStr);
+            }
+            else series.setName(t.toString());
+            LocalTime curTime = chosenStartTime;
+            do {
+                final int hours = curTime.getHour();
+                List<Modeling.Event> curEvents = eventsLog.stream().filter(event ->
+                        event.getType().equals(Modeling.Event.Type.OnWay) &&
+                                event.getTransport().equals(t) &&
+                                event.getTime().getHour() == hours).collect(Collectors.toList());
+                if (curEvents.size() != 0) {
+                    Modeling.Event curEvent = Collections.max(curEvents, Comparator.comparing(Modeling.Event::getFilledPlaces));
+                    series.getData().add(new XYChart.Data<>(curTime.toString(), curEvent.getFilledPlaces()));
+                    if (curEvent.getFilledPlaces() > percentPlaces)
+                        if (!overUsedTransport.contains(curEvent.getTransport()))
+                            overUsedTransport.add(curEvent.getTransport());
+                }
+                curTime = curTime.plusHours(1);
+            } while (curTime.isBefore(chosenEndTime));
+            transportLineChart.getData().add(series);
+        }
     }
 }
