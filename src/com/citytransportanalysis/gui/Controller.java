@@ -450,11 +450,8 @@ public class Controller extends Modeling{
             }
     }
 
-    public BufferedImage saveChartAsImg(LineChart chart) {
+    private BufferedImage saveChartAsImg(LineChart chart) {
         WritableImage image = chart.snapshot(new SnapshotParameters(), null);
-
-        // TODO: probably use a file chooser here
-        File file = new File("chart.png");
 
         try {
             return SwingFXUtils.fromFXImage(image, null);

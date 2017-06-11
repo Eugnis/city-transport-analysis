@@ -133,7 +133,7 @@ public class Modeling {
         for (int i = 1; i <= count; i++) {
             Transport marshrutka = new Transport();
             marshrutka.setId(i);
-            marshrutka.setRouteNumber("--");
+            marshrutka.setRouteNumber("48");
             marshrutka.setSeatPlaces(sitPlaces);
             marshrutka.setStandPlaces(standPlaces);
             marshrutka.setStatus(Transport.Status.OnStop);
