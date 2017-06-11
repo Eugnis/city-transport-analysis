@@ -6,13 +6,8 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c6157823-0090-4d66-b36d-e23b98df4bc9" name="Default" comment="Added reports generation">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resources/map2.png" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.gitignore" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/citytransportanalysis/gui/Controller.java" afterPath="$PROJECT_DIR$/src/com/citytransportanalysis/gui/Controller.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/citytransportanalysis/gui/main.fxml" afterPath="$PROJECT_DIR$/src/com/citytransportanalysis/gui/main.fxml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/citytransportanalysis/modeling/Modeling.java" afterPath="$PROJECT_DIR$/src/com/citytransportanalysis/modeling/Modeling.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/citytransportanalysis/modeling/entity/Stop.java" afterPath="$PROJECT_DIR$/src/com/citytransportanalysis/modeling/entity/Stop.java" />
+    <list default="true" id="c6157823-0090-4d66-b36d-e23b98df4bc9" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -28,7 +23,7 @@
       <file leaf-file-name="Main.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/citytransportanalysis/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1650">
+            <state relative-caret-position="276">
               <caret line="67" column="0" lean-forward="false" selection-start-line="67" selection-start-column="0" selection-end-line="67" selection-end-column="0" />
               <folding />
             </state>
@@ -38,7 +33,7 @@
       <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/resources/gmaps/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="8481">
+            <state relative-caret-position="5397">
               <caret line="257" column="10" lean-forward="false" selection-start-line="257" selection-start-column="10" selection-end-line="257" selection-end-column="10" />
               <folding />
             </state>
@@ -48,37 +43,54 @@
       <file leaf-file-name="Modeling.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/citytransportanalysis/modeling/Modeling.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="9570">
-              <caret line="298" column="72" lean-forward="false" selection-start-line="298" selection-start-column="72" selection-end-line="298" selection-end-column="72" />
-              <folding>
-                <element signature="e#20135#20136#0" expanded="true" />
-                <element signature="e#20175#20176#0" expanded="true" />
-                <element signature="e#25144#25145#0" expanded="true" />
-                <element signature="e#25179#25180#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="444">
+              <caret line="135" column="44" lean-forward="false" selection-start-line="135" selection-start-column="44" selection-end-line="135" selection-end-column="44" />
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
       <file leaf-file-name="main.fxml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/citytransportanalysis/gui/main.fxml">
-          <provider selected="true" editor-type-id="JavaFX-Scene-Builder">
-            <state />
-          </provider>
           <provider editor-type-id="text-editor">
-            <state relative-caret-position="3234">
+            <state relative-caret-position="2058">
               <caret line="98" column="0" lean-forward="false" selection-start-line="98" selection-start-column="0" selection-end-line="98" selection-end-column="0" />
               <folding />
             </state>
+          </provider>
+          <provider selected="true" editor-type-id="JavaFX-Scene-Builder">
+            <state />
           </provider>
         </entry>
       </file>
       <file leaf-file-name="Stop.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/citytransportanalysis/modeling/entity/Stop.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1155">
-              <caret line="40" column="33" lean-forward="false" selection-start-line="40" selection-start-column="33" selection-end-line="40" selection-end-column="33" />
-              <folding />
+            <state relative-caret-position="735">
+              <caret line="40" column="5" lean-forward="false" selection-start-line="40" selection-start-column="5" selection-end-line="40" selection-end-column="5" />
+              <folding>
+                <element signature="imports" expanded="false" />
+                <element signature="e#1522#1523#0" expanded="false" />
+                <element signature="e#1553#1554#0" expanded="false" />
+                <element signature="e#1584#1585#0" expanded="false" />
+                <element signature="e#1611#1612#0" expanded="false" />
+                <element signature="e#1663#1664#0" expanded="false" />
+                <element signature="e#1696#1697#0" expanded="false" />
+                <element signature="e#3908#3909#0" expanded="false" />
+                <element signature="e#3950#3951#0" expanded="false" />
+                <element signature="e#4018#4019#0" expanded="false" />
+                <element signature="e#4080#4081#0" expanded="false" />
+                <element signature="e#4120#4121#0" expanded="false" />
+                <element signature="e#4159#4160#0" expanded="false" />
+                <element signature="e#4199#4200#0" expanded="false" />
+                <element signature="e#4238#4239#0" expanded="false" />
+                <element signature="e#4276#4277#0" expanded="false" />
+                <element signature="e#4313#4314#0" expanded="false" />
+                <element signature="e#4375#4376#0" expanded="false" />
+                <element signature="e#4431#4432#0" expanded="false" />
+                <element signature="e#4463#4464#0" expanded="false" />
+                <element signature="e#4500#4501#0" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -86,17 +98,26 @@
       <file leaf-file-name="Controller.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/com/citytransportanalysis/gui/Controller.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="807">
-              <caret line="595" column="0" lean-forward="true" selection-start-line="595" selection-start-column="0" selection-end-line="595" selection-end-column="0" />
+            <state relative-caret-position="112">
+              <caret line="435" column="0" lean-forward="true" selection-start-line="435" selection-start-column="0" selection-end-line="435" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#3396#3433#0" expanded="true" />
-                <element signature="e#19534#19867#0" expanded="false" />
-                <element signature="e#21794#22644#0" expanded="true" />
-                <element signature="e#22643#22644#0" expanded="true" />
-                <element signature="e#24748#25613#0" expanded="true" />
-                <element signature="e#25612#25613#0" expanded="true" />
+                <element signature="e#2930#2967#0" expanded="true" />
+                <element signature="e#8058#8908#0" expanded="true" />
+                <element signature="e#8907#8908#0" expanded="true" />
+                <element signature="e#11012#11877#0" expanded="true" />
+                <element signature="e#11876#11877#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name=".gitignore" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/.gitignore">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="315">
+              <caret line="15" column="5" lean-forward="false" selection-start-line="15" selection-start-column="5" selection-end-line="15" selection-end-column="5" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -149,10 +170,10 @@
     <treeState />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="894" />
-    <option name="y" value="92" />
-    <option name="width" value="2407" />
-    <option name="height" value="1876" />
+    <option name="x" value="-9" />
+    <option name="y" value="-9" />
+    <option name="width" value="1938" />
+    <option name="height" value="1048" />
   </component>
   <component name="ProjectView">
     <navigator currentView="ProjectPane" proportions="" version="1">
@@ -169,8 +190,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
-      <pane id="PackagesPane" />
       <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
@@ -310,6 +329,8 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scope" />
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -841,7 +862,6 @@
       <workItem from="1496950907885" duration="5542000" />
       <workItem from="1497020148628" duration="8830000" />
       <workItem from="1497185837870" duration="16332000" />
-      <workItem from="1497203873103" duration="40000" />
     </task>
     <task id="LOCAL-00001" summary="Added gitignore">
       <created>1496250954499</created>
@@ -882,46 +902,87 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="34007000" />
+    <option name="totallyTimeSpent" value="33977000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="894" y="92" width="2407" height="1876" extended-state="1" />
+    <frame x="-9" y="-9" width="1938" height="1048" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Nl-Palette" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32904148" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3297568" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3298687" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.30716252" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3292011" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32842582" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.30690828" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Properties" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Spring" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3297568" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1723542" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17185822" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39979178" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39979178" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Nl-Palette" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3297568" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3298687" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Properties" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39979178" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32904148" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.30716252" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3292011" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17009884" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32951587" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="processedProjectFiles" value="true" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="RECENTLY_FILTERED_USER_GROUPS">
+                <collection />
+              </option>
+              <option name="RECENTLY_FILTERED_BRANCH_GROUPS">
+                <collection />
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
@@ -945,66 +1006,111 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/com/citytransportanalysis/Main.java">
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_121/javafx-src.zip!/javafx/scene/control/Button.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1650">
-          <caret line="67" column="0" lean-forward="false" selection-start-line="67" selection-start-column="0" selection-end-line="67" selection-end-column="0" />
-          <folding />
+        <state relative-caret-position="373">
+          <caret line="186" column="0" lean-forward="false" selection-start-line="186" selection-start-column="0" selection-end-line="186" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/citytransportanalysis/modeling/entity/Transport.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="891">
+          <caret line="32" column="33" lean-forward="false" selection-start-line="32" selection-start-column="33" selection-end-line="32" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_121/javafx-src.zip!/javafx/beans/value/ChangeListener.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="990">
+          <caret line="62" column="9" lean-forward="false" selection-start-line="62" selection-start-column="9" selection-end-line="62" selection-end-column="9" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/resources/gmaps/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="8481">
+        <state relative-caret-position="5397">
           <caret line="257" column="10" lean-forward="false" selection-start-line="257" selection-start-column="10" selection-end-line="257" selection-end-column="10" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/citytransportanalysis/modeling/Modeling.java">
+    <entry file="file://$PROJECT_DIR$/src/com/citytransportanalysis/Main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="9570">
-          <caret line="298" column="72" lean-forward="true" selection-start-line="298" selection-start-column="72" selection-end-line="298" selection-end-column="72" />
+        <state relative-caret-position="276">
+          <caret line="67" column="0" lean-forward="false" selection-start-line="67" selection-start-column="0" selection-end-line="67" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/citytransportanalysis/utils/ExceptionDialog.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="528">
+          <caret line="20" column="43" lean-forward="false" selection-start-line="20" selection-start-column="43" selection-end-line="20" selection-end-column="43" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/citytransportanalysis/gui/Visualisation.java" />
+    <entry file="file://$PROJECT_DIR$/src/com/citytransportanalysis/modeling/entity/Stop.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="735">
+          <caret line="40" column="5" lean-forward="false" selection-start-line="40" selection-start-column="5" selection-end-line="40" selection-end-column="5" />
           <folding>
-            <element signature="e#20135#20136#0" expanded="true" />
-            <element signature="e#20175#20176#0" expanded="true" />
-            <element signature="e#25144#25145#0" expanded="true" />
-            <element signature="e#25179#25180#0" expanded="true" />
+            <element signature="imports" expanded="false" />
+            <element signature="e#1522#1523#0" expanded="false" />
+            <element signature="e#1553#1554#0" expanded="false" />
+            <element signature="e#1584#1585#0" expanded="false" />
+            <element signature="e#1611#1612#0" expanded="false" />
+            <element signature="e#1663#1664#0" expanded="false" />
+            <element signature="e#1696#1697#0" expanded="false" />
+            <element signature="e#3908#3909#0" expanded="false" />
+            <element signature="e#3950#3951#0" expanded="false" />
+            <element signature="e#4018#4019#0" expanded="false" />
+            <element signature="e#4080#4081#0" expanded="false" />
+            <element signature="e#4120#4121#0" expanded="false" />
+            <element signature="e#4159#4160#0" expanded="false" />
+            <element signature="e#4199#4200#0" expanded="false" />
+            <element signature="e#4238#4239#0" expanded="false" />
+            <element signature="e#4276#4277#0" expanded="false" />
+            <element signature="e#4313#4314#0" expanded="false" />
+            <element signature="e#4375#4376#0" expanded="false" />
+            <element signature="e#4431#4432#0" expanded="false" />
+            <element signature="e#4463#4464#0" expanded="false" />
+            <element signature="e#4500#4501#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/citytransportanalysis/gui/main.fxml">
-      <provider selected="true" editor-type-id="JavaFX-Scene-Builder">
-        <state />
-      </provider>
-      <provider editor-type-id="text-editor">
-        <state relative-caret-position="3234">
-          <caret line="98" column="0" lean-forward="true" selection-start-line="98" selection-start-column="0" selection-end-line="98" selection-end-column="0" />
+    <entry file="file://$PROJECT_DIR$/src/com/citytransportanalysis/modeling/Modeling.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="444">
+          <caret line="135" column="44" lean-forward="false" selection-start-line="135" selection-start-column="44" selection-end-line="135" selection-end-column="44" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/citytransportanalysis/modeling/entity/Stop.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1155">
-          <caret line="40" column="33" lean-forward="true" selection-start-line="40" selection-start-column="33" selection-end-line="40" selection-end-column="33" />
+    <entry file="file://$PROJECT_DIR$/src/com/citytransportanalysis/gui/main.fxml">
+      <provider editor-type-id="text-editor">
+        <state relative-caret-position="2058">
+          <caret line="98" column="0" lean-forward="false" selection-start-line="98" selection-start-column="0" selection-end-line="98" selection-end-column="0" />
           <folding />
         </state>
+      </provider>
+      <provider selected="true" editor-type-id="JavaFX-Scene-Builder">
+        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/citytransportanalysis/gui/Controller.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17391">
-          <caret line="589" column="39" lean-forward="true" selection-start-line="589" selection-start-column="39" selection-end-line="589" selection-end-column="39" />
+        <state relative-caret-position="217">
+          <caret line="437" column="30" lean-forward="true" selection-start-line="437" selection-start-column="30" selection-end-line="437" selection-end-column="30" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#3396#3433#0" expanded="true" />
-            <element signature="e#19534#19867#0" expanded="false" />
-            <element signature="e#21794#22644#0" expanded="true" />
-            <element signature="e#22643#22644#0" expanded="true" />
-            <element signature="e#24748#25613#0" expanded="true" />
-            <element signature="e#25612#25613#0" expanded="true" />
+            <element signature="e#2930#2967#0" expanded="true" />
+            <element signature="e#8058#8908#0" expanded="true" />
+            <element signature="e#8907#8908#0" expanded="true" />
+            <element signature="e#11012#11877#0" expanded="true" />
+            <element signature="e#11876#11877#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1021,24 +1127,19 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="14751">
           <caret line="447" column="15" lean-forward="true" selection-start-line="447" selection-start-column="15" selection-end-line="447" selection-end-column="24" />
-          <folding>
-            <element signature="e#20135#20136#0" expanded="true" />
-            <element signature="e#20175#20176#0" expanded="true" />
-            <element signature="e#25144#25145#0" expanded="true" />
-            <element signature="e#25179#25180#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/citytransportanalysis/gui/main.fxml">
-      <provider editor-type-id="JavaFX-Scene-Builder">
-        <state />
-      </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="4191">
           <caret line="127" column="56" lean-forward="false" selection-start-line="127" selection-start-column="56" selection-end-line="127" selection-end-column="56" />
           <folding />
         </state>
+      </provider>
+      <provider editor-type-id="JavaFX-Scene-Builder">
+        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/citytransportanalysis/modeling/entity/Transport.java">
@@ -1054,12 +1155,11 @@
           <caret line="407" column="30" lean-forward="false" selection-start-line="407" selection-start-column="12" selection-end-line="407" selection-end-column="30" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#3396#3433#0" expanded="true" />
-            <element signature="e#19534#19867#0" expanded="false" />
-            <element signature="e#21794#22644#0" expanded="true" />
-            <element signature="e#22643#22644#0" expanded="true" />
-            <element signature="e#24748#25613#0" expanded="true" />
-            <element signature="e#25612#25613#0" expanded="true" />
+            <element signature="e#2930#2967#0" expanded="true" />
+            <element signature="e#8058#8908#0" expanded="true" />
+            <element signature="e#8907#8908#0" expanded="true" />
+            <element signature="e#11012#11877#0" expanded="true" />
+            <element signature="e#11876#11877#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1076,24 +1176,19 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="561">
           <caret line="25" column="0" lean-forward="true" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
-          <folding>
-            <element signature="e#20135#20136#0" expanded="true" />
-            <element signature="e#20175#20176#0" expanded="true" />
-            <element signature="e#25144#25145#0" expanded="true" />
-            <element signature="e#25179#25180#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/citytransportanalysis/gui/main.fxml">
-      <provider editor-type-id="JavaFX-Scene-Builder">
-        <state />
-      </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="4158">
           <caret line="126" column="56" lean-forward="true" selection-start-line="126" selection-start-column="56" selection-end-line="126" selection-end-column="56" />
           <folding />
         </state>
+      </provider>
+      <provider editor-type-id="JavaFX-Scene-Builder">
+        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/citytransportanalysis/modeling/entity/Transport.java">
@@ -1109,12 +1204,11 @@
           <caret line="371" column="25" lean-forward="false" selection-start-line="371" selection-start-column="8" selection-end-line="371" selection-end-column="25" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#3396#3433#0" expanded="true" />
-            <element signature="e#19534#19867#0" expanded="false" />
-            <element signature="e#21794#22644#0" expanded="true" />
-            <element signature="e#22643#22644#0" expanded="true" />
-            <element signature="e#24748#25613#0" expanded="true" />
-            <element signature="e#25612#25613#0" expanded="true" />
+            <element signature="e#2930#2967#0" expanded="true" />
+            <element signature="e#8058#8908#0" expanded="true" />
+            <element signature="e#8907#8908#0" expanded="true" />
+            <element signature="e#11012#11877#0" expanded="true" />
+            <element signature="e#11876#11877#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1131,12 +1225,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="6435">
           <caret line="195" column="36" lean-forward="false" selection-start-line="195" selection-start-column="36" selection-end-line="195" selection-end-column="36" />
-          <folding>
-            <element signature="e#20135#20136#0" expanded="true" />
-            <element signature="e#20175#20176#0" expanded="true" />
-            <element signature="e#25144#25145#0" expanded="true" />
-            <element signature="e#25179#25180#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1146,12 +1235,11 @@
           <caret line="224" column="41" lean-forward="false" selection-start-line="224" selection-start-column="41" selection-end-line="224" selection-end-column="41" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#3396#3433#0" expanded="true" />
-            <element signature="e#19534#19867#0" expanded="false" />
-            <element signature="e#21794#22644#0" expanded="true" />
-            <element signature="e#22643#22644#0" expanded="true" />
-            <element signature="e#24748#25613#0" expanded="true" />
-            <element signature="e#25612#25613#0" expanded="true" />
+            <element signature="e#2930#2967#0" expanded="true" />
+            <element signature="e#8058#8908#0" expanded="true" />
+            <element signature="e#8907#8908#0" expanded="true" />
+            <element signature="e#11012#11877#0" expanded="true" />
+            <element signature="e#11876#11877#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1168,12 +1256,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="6435">
           <caret line="195" column="36" lean-forward="false" selection-start-line="195" selection-start-column="36" selection-end-line="195" selection-end-column="36" />
-          <folding>
-            <element signature="e#20135#20136#0" expanded="true" />
-            <element signature="e#20175#20176#0" expanded="true" />
-            <element signature="e#25144#25145#0" expanded="true" />
-            <element signature="e#25179#25180#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1183,12 +1266,11 @@
           <caret line="224" column="41" lean-forward="true" selection-start-line="224" selection-start-column="41" selection-end-line="224" selection-end-column="41" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#3396#3433#0" expanded="true" />
-            <element signature="e#19534#19867#0" expanded="false" />
-            <element signature="e#21794#22644#0" expanded="true" />
-            <element signature="e#22643#22644#0" expanded="true" />
-            <element signature="e#24748#25613#0" expanded="true" />
-            <element signature="e#25612#25613#0" expanded="true" />
+            <element signature="e#2930#2967#0" expanded="true" />
+            <element signature="e#8058#8908#0" expanded="true" />
+            <element signature="e#8907#8908#0" expanded="true" />
+            <element signature="e#11012#11877#0" expanded="true" />
+            <element signature="e#11876#11877#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1205,12 +1287,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="6435">
           <caret line="195" column="36" lean-forward="false" selection-start-line="195" selection-start-column="36" selection-end-line="195" selection-end-column="36" />
-          <folding>
-            <element signature="e#20135#20136#0" expanded="true" />
-            <element signature="e#20175#20176#0" expanded="true" />
-            <element signature="e#25144#25145#0" expanded="true" />
-            <element signature="e#25179#25180#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1220,12 +1297,11 @@
           <caret line="212" column="61" lean-forward="true" selection-start-line="212" selection-start-column="61" selection-end-line="212" selection-end-column="61" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#3396#3433#0" expanded="true" />
-            <element signature="e#19534#19867#0" expanded="false" />
-            <element signature="e#21794#22644#0" expanded="true" />
-            <element signature="e#22643#22644#0" expanded="true" />
-            <element signature="e#24748#25613#0" expanded="true" />
-            <element signature="e#25612#25613#0" expanded="true" />
+            <element signature="e#2930#2967#0" expanded="true" />
+            <element signature="e#8058#8908#0" expanded="true" />
+            <element signature="e#8907#8908#0" expanded="true" />
+            <element signature="e#11012#11877#0" expanded="true" />
+            <element signature="e#11876#11877#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1242,12 +1318,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="495">
           <caret line="15" column="13" lean-forward="false" selection-start-line="15" selection-start-column="13" selection-end-line="15" selection-end-column="13" />
-          <folding>
-            <element signature="e#20135#20136#0" expanded="true" />
-            <element signature="e#20175#20176#0" expanded="true" />
-            <element signature="e#25144#25145#0" expanded="true" />
-            <element signature="e#25179#25180#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1257,12 +1328,11 @@
           <caret line="279" column="12" lean-forward="false" selection-start-line="279" selection-start-column="12" selection-end-line="281" selection-end-column="38" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#3396#3433#0" expanded="true" />
-            <element signature="e#19534#19867#0" expanded="false" />
-            <element signature="e#21794#22644#0" expanded="true" />
-            <element signature="e#22643#22644#0" expanded="true" />
-            <element signature="e#24748#25613#0" expanded="true" />
-            <element signature="e#25612#25613#0" expanded="true" />
+            <element signature="e#2930#2967#0" expanded="true" />
+            <element signature="e#8058#8908#0" expanded="true" />
+            <element signature="e#8907#8908#0" expanded="true" />
+            <element signature="e#11012#11877#0" expanded="true" />
+            <element signature="e#11876#11877#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1279,12 +1349,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="495">
           <caret line="15" column="13" lean-forward="false" selection-start-line="15" selection-start-column="13" selection-end-line="15" selection-end-column="13" />
-          <folding>
-            <element signature="e#20135#20136#0" expanded="true" />
-            <element signature="e#20175#20176#0" expanded="true" />
-            <element signature="e#25144#25145#0" expanded="true" />
-            <element signature="e#25179#25180#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1294,12 +1359,11 @@
           <caret line="272" column="9" lean-forward="true" selection-start-line="272" selection-start-column="9" selection-end-line="272" selection-end-column="9" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#3396#3433#0" expanded="true" />
-            <element signature="e#19534#19867#0" expanded="false" />
-            <element signature="e#21794#22644#0" expanded="true" />
-            <element signature="e#22643#22644#0" expanded="true" />
-            <element signature="e#24748#25613#0" expanded="true" />
-            <element signature="e#25612#25613#0" expanded="true" />
+            <element signature="e#2930#2967#0" expanded="true" />
+            <element signature="e#8058#8908#0" expanded="true" />
+            <element signature="e#8907#8908#0" expanded="true" />
+            <element signature="e#11012#11877#0" expanded="true" />
+            <element signature="e#11876#11877#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1356,7 +1420,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/resources/gmaps/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="8481">
+        <state relative-caret-position="5397">
           <caret line="257" column="10" lean-forward="false" selection-start-line="257" selection-start-column="10" selection-end-line="257" selection-end-column="10" />
           <folding />
         </state>
@@ -1364,7 +1428,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/citytransportanalysis/Main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1650">
+        <state relative-caret-position="276">
           <caret line="67" column="0" lean-forward="false" selection-start-line="67" selection-start-column="0" selection-end-line="67" selection-end-column="0" />
           <folding />
         </state>
@@ -1380,48 +1444,64 @@
     <entry file="file://$PROJECT_DIR$/src/com/citytransportanalysis/gui/Visualisation.java" />
     <entry file="file://$PROJECT_DIR$/src/com/citytransportanalysis/modeling/entity/Stop.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1155">
-          <caret line="40" column="33" lean-forward="false" selection-start-line="40" selection-start-column="33" selection-end-line="40" selection-end-column="33" />
-          <folding />
+        <state relative-caret-position="735">
+          <caret line="40" column="5" lean-forward="false" selection-start-line="40" selection-start-column="5" selection-end-line="40" selection-end-column="5" />
+          <folding>
+            <element signature="imports" expanded="false" />
+            <element signature="e#1522#1523#0" expanded="false" />
+            <element signature="e#1553#1554#0" expanded="false" />
+            <element signature="e#1584#1585#0" expanded="false" />
+            <element signature="e#1611#1612#0" expanded="false" />
+            <element signature="e#1663#1664#0" expanded="false" />
+            <element signature="e#1696#1697#0" expanded="false" />
+            <element signature="e#3908#3909#0" expanded="false" />
+            <element signature="e#3950#3951#0" expanded="false" />
+            <element signature="e#4018#4019#0" expanded="false" />
+            <element signature="e#4080#4081#0" expanded="false" />
+            <element signature="e#4120#4121#0" expanded="false" />
+            <element signature="e#4159#4160#0" expanded="false" />
+            <element signature="e#4199#4200#0" expanded="false" />
+            <element signature="e#4238#4239#0" expanded="false" />
+            <element signature="e#4276#4277#0" expanded="false" />
+            <element signature="e#4313#4314#0" expanded="false" />
+            <element signature="e#4375#4376#0" expanded="false" />
+            <element signature="e#4431#4432#0" expanded="false" />
+            <element signature="e#4463#4464#0" expanded="false" />
+            <element signature="e#4500#4501#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/citytransportanalysis/modeling/Modeling.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="9570">
-          <caret line="298" column="72" lean-forward="false" selection-start-line="298" selection-start-column="72" selection-end-line="298" selection-end-column="72" />
-          <folding>
-            <element signature="e#20135#20136#0" expanded="true" />
-            <element signature="e#20175#20176#0" expanded="true" />
-            <element signature="e#25144#25145#0" expanded="true" />
-            <element signature="e#25179#25180#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/citytransportanalysis/gui/main.fxml">
-      <provider selected="true" editor-type-id="JavaFX-Scene-Builder">
-        <state />
-      </provider>
-      <provider editor-type-id="text-editor">
-        <state relative-caret-position="3234">
-          <caret line="98" column="0" lean-forward="false" selection-start-line="98" selection-start-column="0" selection-end-line="98" selection-end-column="0" />
+        <state relative-caret-position="444">
+          <caret line="135" column="44" lean-forward="false" selection-start-line="135" selection-start-column="44" selection-end-line="135" selection-end-column="44" />
           <folding />
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/citytransportanalysis/gui/main.fxml">
+      <provider editor-type-id="text-editor">
+        <state relative-caret-position="2058">
+          <caret line="98" column="0" lean-forward="false" selection-start-line="98" selection-start-column="0" selection-end-line="98" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+      <provider selected="true" editor-type-id="JavaFX-Scene-Builder">
+        <state />
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/citytransportanalysis/gui/Controller.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="807">
-          <caret line="595" column="0" lean-forward="true" selection-start-line="595" selection-start-column="0" selection-end-line="595" selection-end-column="0" />
+        <state relative-caret-position="112">
+          <caret line="435" column="0" lean-forward="true" selection-start-line="435" selection-start-column="0" selection-end-line="435" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#3396#3433#0" expanded="true" />
-            <element signature="e#19534#19867#0" expanded="false" />
-            <element signature="e#21794#22644#0" expanded="true" />
-            <element signature="e#22643#22644#0" expanded="true" />
-            <element signature="e#24748#25613#0" expanded="true" />
-            <element signature="e#25612#25613#0" expanded="true" />
+            <element signature="e#2930#2967#0" expanded="true" />
+            <element signature="e#8058#8908#0" expanded="true" />
+            <element signature="e#8907#8908#0" expanded="true" />
+            <element signature="e#11012#11877#0" expanded="true" />
+            <element signature="e#11876#11877#0" expanded="true" />
           </folding>
         </state>
       </provider>
