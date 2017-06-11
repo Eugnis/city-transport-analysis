@@ -4,21 +4,33 @@ import com.citytransportanalysis.modeling.Modeling;
 import com.citytransportanalysis.modeling.entity.RouteSegment;
 import com.citytransportanalysis.modeling.entity.Stop;
 import com.citytransportanalysis.modeling.entity.Transport;
+import com.citytransportanalysis.utils.ExceptionDialog;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
+import javafx.scene.SnapshotParameters;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.WritableImage;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 import javafx.scene.web.WebView;
 import javafx.util.Callback;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.swing.JRViewer;
 
+import javax.swing.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.InputStream;
 import java.time.LocalTime;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -255,16 +267,22 @@ public class Controller extends Modeling{
         int standPlacesCount = transportPlacesStand.getValueFactory().getValue();
         //System.out.printf("New transport count %d period %d", transportCount, periodCount);
         transportList = transportData(transportCount, sitPlacesCount, standPlacesCount, chosenStartTime, periodCount);
-        LaunchMovement(routeSegmentsList, transportList, chosenStartTime, chosenEndTime, periodCount);
+        try{
+            LaunchMovement(routeSegmentsList, transportList, chosenStartTime, chosenEndTime, periodCount);
+            /* Выводим результаты в форму */
+            refillDisplayedData();
+
+            logSplitPane.setDisable(false);
+            visualTabPane.setDisable(false);
+        } catch (Exception e) {
+            ExceptionDialog.Show(e, "Невірні вхідні дані");
+        }
+
         //LinkedList<RouteSegment> route = routeData();
 
         //eventsLog = modeling.eventsLog;
 
-        /* Выводим результаты в форму */
-        refillDisplayedData();
 
-        logSplitPane.setDisable(false);
-        visualTabPane.setDisable(false);
     }
 
     private void refillDisplayedData(){
@@ -399,5 +417,50 @@ public class Controller extends Modeling{
             } while (curTime.isBefore(chosenEndTime));
             transportLineChart.getData().add(series);
         }
+    }
+
+    public void generateReportClicked(ActionEvent actionEvent) {
+        InputStream reportName = null;
+        try {
+            reportName = getClass().getResource("/report_templates/Simple_Blue.jasper").openStream();
+
+        } catch (Exception e) {
+            ExceptionDialog.Show(e, "Не знайдено шаблон");
+        }
+        JRBeanCollectionDataSource beanCollectionDataSource = new JRBeanCollectionDataSource(eventsLog); //создаем коллекцию Jasper Report Bean Collection
+
+        Map parameters = new HashMap();
+        parameters.put("nomer", eventsLog.get(0).getTransport().getRouteNumber());
+        parameters.put("stopsChart", saveChartAsImg(stopsLineChart));
+        parameters.put("transportChart", saveChartAsImg(transportLineChart));
+
+        System.out.println(eventsLog.get(0).getTransport().getRouteNumber());
+        JasperPrint jp = null;
+            try {
+                jp = JasperFillManager.fillReport(reportName, parameters, beanCollectionDataSource);
+                JRViewer jv = new JRViewer(jp); // компонент просмотра отчета
+
+                JFrame reportFrame = new JFrame();
+                reportFrame.setSize(768, 1024);
+                reportFrame.getContentPane().add(jv);
+                reportFrame.validate();
+                reportFrame.setVisible(true);
+            } catch (Exception e) {
+                ExceptionDialog.Show(e, "Помилка у побудові звіту");
+            }
+    }
+
+    public BufferedImage saveChartAsImg(LineChart chart) {
+        WritableImage image = chart.snapshot(new SnapshotParameters(), null);
+
+        // TODO: probably use a file chooser here
+        File file = new File("chart.png");
+
+        try {
+            return SwingFXUtils.fromFXImage(image, null);
+        } catch (Exception e) {
+            ExceptionDialog.Show(e, "Помилка у збереженні зображення графіку");
+        }
+        return null;
     }
 }

@@ -92,6 +92,7 @@
                                     </valueFactory>
                                 </Spinner>
                                 <Label fx:id="percentPlacesCountLabel" layoutX="610.0" layoutY="138.0" text="Label" />
+                        <Button layoutX="461.0" layoutY="202.0" mnemonicParsing="false" onAction="#generateReportClicked" prefHeight="25.0" prefWidth="160.0" text="Зберегти звіт у файл" />
                             </children>
                         </AnchorPane>
                           <SplitPane fx:id="logSplitPane" dividerPositions="0.3568904593639576" prefHeight="579.0" prefWidth="742.0">

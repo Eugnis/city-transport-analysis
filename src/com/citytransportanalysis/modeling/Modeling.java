@@ -313,9 +313,14 @@ public class Modeling {
         private int passengersOnStop;
         private int passengersLeft;
 
+        public String getTextTime() {
+            return textTime.get();
+        }
+
         private SimpleStringProperty textTime;
         private SimpleStringProperty description;
         private SimpleIntegerProperty transportId;
+
 
         public Transport getTransport() {
             return transport;

@@ -5,10 +5,14 @@ import com.citytransportanalysis.modeling.entity.RouteSegment;
 import com.citytransportanalysis.modeling.entity.Transport;
 import com.sun.org.apache.xpath.internal.operations.Mod;
 import javafx.application.Application;
+import javafx.application.Platform;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 import java.time.LocalTime;
 import java.util.LinkedList;
@@ -59,7 +63,7 @@ public class Main extends Application {
 
         launch(args);     //запустить граф. интерфейс.
 
-        exit();     //завершение проги
+        //exit();     //завершение проги
     }
 
     /**
@@ -68,9 +72,15 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("gui/main.fxml"));
+        primaryStage.getIcons().add(new Image(getClass().getResource("/icon.png").toExternalForm()));
         primaryStage.setTitle("City Transport Analysis");
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
+
+        primaryStage.setOnCloseRequest(t -> {
+            Platform.exit();
+            System.exit(0);
+        });
 
     }
 }
