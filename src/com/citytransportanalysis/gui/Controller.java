@@ -146,7 +146,7 @@ public class Controller extends Modeling{
     @FXML
     private void startAnimationAction(ActionEvent event) throws InterruptedException {
 
-        contentPane.getChildren().removeAll(stack,livober, entuz, entuz2, bridge, bridge2, library, library2, buvet, buvet2, post, post, davidova, davidova2,okipnoi, slavutich);
+        contentPane.getChildren().removeAll(stack,livober, entuz, entuz2, bridge, bridge2, library, library2, buvet, buvet2, post, post2, davidova, davidova2,okipnoi, slavutich);
 
         String startTime = timeFromTextField.getText(); //get start time from field
         //String endTime = timeToTextField.getText();
@@ -158,6 +158,7 @@ public class Controller extends Modeling{
         minute = Integer.parseInt(minuteString);
         hour = Integer.parseInt(hourString);
 
+        List<String[]> list = new ArrayList<String[]>(mainList);
 
         int cycleCount;
         String endTime = list.get(list.size()-1)[0];
@@ -357,7 +358,7 @@ public class Controller extends Modeling{
                                             slavutich.setFill(Color.web(String.valueOf(busColors.get(list.get(i)[1]))));
                                             slavutich.setStyle(strStyle);
                                         }
-//                                        list.remove(i);
+                                        list.remove(i);
                                     }
                                 }
                             }
@@ -383,7 +384,7 @@ public class Controller extends Modeling{
 
     @FXML
     public void stopAnimationAction(ActionEvent actionEvent) {
-        contentPane.getChildren().removeAll(stack,livober, entuz, entuz2, bridge, bridge2, library, library2, buvet, buvet2, post, post, davidova, davidova2,okipnoi, slavutich);
+        contentPane.getChildren().removeAll(stack,livober, entuz, entuz2, bridge, bridge2, library, library2, buvet, buvet2, post, post2, davidova, davidova2,okipnoi, slavutich);
         timeline.stop();
 
         speedField.setDisable(false);

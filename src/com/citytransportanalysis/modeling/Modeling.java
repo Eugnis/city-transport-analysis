@@ -19,7 +19,7 @@ public class Modeling {
      * список событий
      */
     public List<Event> eventsLog;
-    public static List<String[]> list = new ArrayList<String[]>();
+    public static List<String[]> mainList = new ArrayList<String[]>();
     public static String[] l = new String[8];
     public static Map busColors = new HashMap();
 
@@ -473,7 +473,7 @@ public class Modeling {
                     l[6] = (String.format("%s",stop.getGettedOutPassengers()));
                     l[7] = (String.format("%s/%s",transport.getOccupiedPlaces()-stop.getSittedPassengers(), transport.getTotalPlaces()));
 
-                    list.add(new String[]{l[0], l[1], l[2], l[3], l[4], l[5], l[6], l[7]});
+                    mainList.add(new String[]{l[0], l[1], l[2], l[3], l[4], l[5], l[6], l[7]});
                     return String.format("Посадка. Зайшло %d чел, зайнято %d/%d місць. Не зайшло %d чел\n", stop.getSittedPassengers(), transport.getOccupiedPlaces(), transport.getTotalPlaces(), stop.getPassengers().size());
                 case GettingOutPassenger:
                     return String.format("Висадка. Вийшло %d чел, зайнято %d/%d місць.\n", stop.getGettedOutPassengers(), transport.getOccupiedPlaces(), transport.getTotalPlaces());
