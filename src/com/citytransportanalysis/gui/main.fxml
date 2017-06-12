@@ -92,7 +92,7 @@
                                     </valueFactory>
                                 </Spinner>
                                 <Label fx:id="percentPlacesCountLabel" layoutX="610.0" layoutY="138.0" text="Label" />
-                                <Button layoutX="556.0" layoutY="202.0" mnemonicParsing="false" onAction="#generateReportClicked" prefHeight="26.0" prefWidth="181.0" text="Зберегти звіт у файл" />
+                                <Button fx:id="reportBtn" disable="true" layoutX="470.0" layoutY="197.0" mnemonicParsing="false" onAction="#generateReportClicked" prefHeight="26.0" prefWidth="181.0" text="Сформувати звіт" />
 
                             </children>
                         </AnchorPane>
@@ -153,12 +153,12 @@
                                     <children>
                                         <Region layoutX="-1.0" prefHeight="782.0" prefWidth="459.0" style="-fx-background-image: url('map.png'); -fx-background-repeat: no-repeat;" />
                                         <Button fx:id="startAnimation" layoutX="475.0" layoutY="80.0" onAction="#startAnimationAction" text="Start" />
-                                        <Button fx:id="stopAnimation" layoutX="475.0" layoutY="116.0" onAction="#stopAnimationAction" disable="true" text="Stop" />
+                                        <Button fx:id="stopAnimation" disable="true" layoutX="475.0" layoutY="116.0" onAction="#stopAnimationAction" text="Stop" />
                                         <Pane fx:id="contentPane" prefHeight="445.0" prefWidth="238.0" />
                                         <Label fx:id="label" layoutX="479.0" layoutY="14.0" text="Speed" />
                                         <TextField fx:id="speedField" layoutX="469.0" layoutY="37.0" prefHeight="31.0" prefWidth="62.0" text="0.05" />
-                                        <Button fx:id="pauseAnimation" layoutX="475.0" layoutY="197.0" onAction="#pauseAnimationAction" disable="true" text="Pause" />
-                                        <Button fx:id="resumeAnimation" layoutX="475.0" layoutY="232.0" onAction="#resumeAnimationAction" disable="true" text="Resume" />
+                                        <Button fx:id="pauseAnimation" disable="true" layoutX="475.0" layoutY="197.0" onAction="#pauseAnimationAction" text="Pause" />
+                                        <Button fx:id="resumeAnimation" disable="true" layoutX="475.0" layoutY="232.0" onAction="#resumeAnimationAction" text="Resume" />
                                     </children>
                                 </AnchorPane>
                             </content>

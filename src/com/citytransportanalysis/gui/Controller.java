@@ -52,6 +52,7 @@ public class Controller extends Modeling{
     /**
      * Объекты с шаблона main.fxml
      */
+    public Button reportBtn;
     public Button button;
     public TableView logTable;
     public ListView<String> stopListView;
@@ -610,6 +611,8 @@ public class Controller extends Modeling{
         } catch (Exception e) {
             ExceptionDialog.Show(e, "Невірні вхідні дані");
         }
+
+        reportBtn.setDisable(false);
 
         //LinkedList<RouteSegment> route = routeData();
 
