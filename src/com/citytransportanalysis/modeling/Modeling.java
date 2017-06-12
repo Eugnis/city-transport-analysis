@@ -1,5 +1,6 @@
 package com.citytransportanalysis.modeling;
 
+import com.citytransportanalysis.ReadingXML;
 import com.citytransportanalysis.modeling.entity.RouteSegment;
 import com.citytransportanalysis.modeling.entity.Stop;
 import com.citytransportanalysis.modeling.entity.Transport;
@@ -195,8 +196,15 @@ public class Modeling {
         };
     }
 
+    ReadingXML readingXML = new ReadingXML();
     public LinkedList<RouteSegment> routeData() {
 
+
+        //List<Stop> stopList = new ArrayList<Stop>();
+        LinkedList<RouteSegment> routeSegments = new LinkedList<>();
+        routeSegments = readingXML.routeDataMy(routeSegments);
+
+/*
         Map<LocalTime, Double> passengerComingTimeLast = new HashMap<LocalTime, Double>() {
             {
                 put(LocalTime.parse("06:00"), 0.0);
@@ -294,7 +302,7 @@ public class Modeling {
         routeSegments.add(new RouteSegment(stop13, stop14, 100, 500));
         routeSegments.add(new RouteSegment(stop14, stop15, 100, 500));
         routeSegments.add(new RouteSegment(stop15, stop16, 120, 600));
-
+*/
         return routeSegments;
     }
 
