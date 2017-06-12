@@ -199,11 +199,11 @@ public class ReadingXML {
                     Element eElement = (Element) nNode;
 
                     if (temp != 0 && temp != nList.getLength()-1) {
-                        stopList.add(new Stop(eElement.getAttribute("name"), passengerComingTimeGen(), passengerExitProbabilityGen(), Double.parseDouble(eElement.getAttribute("waittime"))));
+                        stopList.add(new Stop(eElement.getAttribute("name"), passengerComingTimeGen(), passengerExitProbabilityGen(), Double.parseDouble(eElement.getAttribute("waittime")), eElement.getAttribute("idname")));
                     } else if (temp == nList.getLength()-1) {
-                        stopList.add(new Stop(eElement.getAttribute("name"), passengerComingTimeLast, passengerExitProbabilityLast, Double.parseDouble(eElement.getAttribute("waittime"))));
+                        stopList.add(new Stop(eElement.getAttribute("name"), passengerComingTimeLast, passengerExitProbabilityLast, Double.parseDouble(eElement.getAttribute("waittime")), eElement.getAttribute("idname")));
                     } else {
-                        stopList.add(new Stop(eElement.getAttribute("name"), passengerComingTimeGen(), passengerExitProbability, Double.parseDouble(eElement.getAttribute("waittime"))));
+                        stopList.add(new Stop(eElement.getAttribute("name"), passengerComingTimeGen(), passengerExitProbability, Double.parseDouble(eElement.getAttribute("waittime")), eElement.getAttribute("idname")));
                     }
 
                     if (temp > 0) {
