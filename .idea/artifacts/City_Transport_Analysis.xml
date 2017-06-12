@@ -1,5 +1,5 @@
 <component name="ArtifactManager">
-  <artifact type="javafx" build-on-make="true" name="City Transport Analysis">
+  <artifact type="javafx" name="City Transport Analysis">
     <output-path>$PROJECT_DIR$/out/artifacts/City_Transport_Analysis</output-path>
     <properties id="javafx-properties">
       <options>
