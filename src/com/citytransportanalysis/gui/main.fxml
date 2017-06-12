@@ -20,12 +20,12 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.TextFlow?>
-<?import javafx.scene.web.WebView?>
 
-<VBox xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.citytransportanalysis.gui.Controller">
+<VBox xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.citytransportanalysis.gui.Controller">
     <children>
         <MenuBar>
             <menus>
@@ -46,8 +46,8 @@
                 </Menu>
             </menus>
         </MenuBar>
-      <SplitPane dividerPositions="0.5">
-         <items>
+        <SplitPane dividerPositions="0.5">
+            <items>
                 <VBox>
                     <children>
                         <AnchorPane minWidth="-Infinity" prefHeight="250.0" prefWidth="742.0">
@@ -92,105 +92,113 @@
                                     </valueFactory>
                                 </Spinner>
                                 <Label fx:id="percentPlacesCountLabel" layoutX="610.0" layoutY="138.0" text="Label" />
-                        <Button layoutX="461.0" layoutY="202.0" mnemonicParsing="false" onAction="#generateReportClicked" prefHeight="25.0" prefWidth="160.0" text="Зберегти звіт у файл" />
+                                <Button fx:id="reportBtn" disable="true" layoutX="470.0" layoutY="197.0" mnemonicParsing="false" onAction="#generateReportClicked" prefHeight="26.0" prefWidth="181.0" text="Сформувати звіт" />
+
                             </children>
                         </AnchorPane>
-                          <SplitPane fx:id="logSplitPane" dividerPositions="0.3568904593639576" prefHeight="579.0" prefWidth="742.0">
-                              <items>
-                                  <SplitPane dividerPositions="0.5" maxWidth="-Infinity" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0">
-                                      <items>
-                                          <VBox>
-                                              <children>
-                                                  <Button fx:id="resetFilter" mnemonicParsing="false" onAction="#resetFilterClicked" prefHeight="25.0" prefWidth="200.0" text="Зброс фільтру" />
-                                                  <AnchorPane prefHeight="200.0" prefWidth="200.0">
-                                                      <children>
-                                                          <Label alignment="CENTER" prefHeight="21.0" prefWidth="199.0" text="Зупинки" textAlignment="CENTER" />
-                                                      </children>
-                                                  </AnchorPane>
-                                                  <ListView fx:id="stopListView" maxWidth="199.0" prefHeight="577.0" prefWidth="331.0" />
-                                              </children>
-                                          </VBox>
-                                          <VBox>
-                                              <children>
-                                                  <AnchorPane prefHeight="200.0" prefWidth="200.0">
-                                                      <children>
-                                                          <Label alignment="CENTER" prefHeight="21.0" prefWidth="199.0" text="Транспорт" textAlignment="CENTER" />
-                                                      </children>
-                                                  </AnchorPane>
-                                                  <ListView fx:id="transportListView" maxWidth="199.0" prefHeight="577.0" prefWidth="331.0" />
-                                              </children>
-                                          </VBox>
-                                      </items>
-                                  </SplitPane>
-                                  <VBox>
-                                      <children>
-                                          <AnchorPane prefHeight="113.0" prefWidth="535.0">
-                                              <children>
-                                                  <TextFlow fx:id="textFlowStationInfo" prefHeight="107.0" prefWidth="535.0" style="-fx-font-size: 18" textAlignment="CENTER" />
-                                              </children>
-                                          </AnchorPane>
-                                          <TableView fx:id="logTable" prefHeight="482.0" prefWidth="535.0">
-                                              <columns>
-                                                  <TableColumn prefWidth="75.0" text="Time" />
-                                                  <TableColumn prefWidth="504.0" text="Log" />
-                                              </columns>
-                                              <opaqueInsets>
-                                                  <Insets />
-                                              </opaqueInsets>
-                                          </TableView>
-                                      </children>
-                                  </VBox>
-                              </items>
-                          </SplitPane>
+                        <SplitPane fx:id="logSplitPane" dividerPositions="0.3568904593639576" prefHeight="579.0" prefWidth="742.0">
+                            <items>
+                                <SplitPane dividerPositions="0.5" maxWidth="-Infinity" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0">
+                                    <items>
+                                        <VBox>
+                                            <children>
+                                                <Button fx:id="resetFilter" mnemonicParsing="false" onAction="#resetFilterClicked" prefHeight="25.0" prefWidth="200.0" text="Зброс фільтру" />
+                                                <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                                                    <children>
+                                                        <Label alignment="CENTER" prefHeight="21.0" prefWidth="199.0" text="Зупинки" textAlignment="CENTER" />
+                                                    </children>
+                                                </AnchorPane>
+                                                <ListView fx:id="stopListView" maxWidth="199.0" prefHeight="577.0" prefWidth="331.0" />
+                                            </children>
+                                        </VBox>
+                                        <VBox>
+                                            <children>
+                                                <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                                                    <children>
+                                                        <Label alignment="CENTER" prefHeight="21.0" prefWidth="199.0" text="Транспорт" textAlignment="CENTER" />
+                                                    </children>
+                                                </AnchorPane>
+                                                <ListView fx:id="transportListView" maxWidth="199.0" prefHeight="577.0" prefWidth="331.0" />
+                                            </children>
+                                        </VBox>
+                                    </items>
+                                </SplitPane>
+                                <VBox>
+                                    <children>
+                                        <AnchorPane prefHeight="113.0" prefWidth="535.0">
+                                            <children>
+                                                <TextFlow fx:id="textFlowStationInfo" prefHeight="107.0" prefWidth="535.0" style="-fx-font-size: 18" textAlignment="CENTER" />
+                                            </children>
+                                        </AnchorPane>
+                                        <TableView fx:id="logTable" prefHeight="482.0" prefWidth="535.0">
+                                            <columns>
+                                                <TableColumn prefWidth="75.0" text="Time" />
+                                                <TableColumn prefWidth="504.0" text="Log" />
+                                            </columns>
+                                            <opaqueInsets>
+                                                <Insets />
+                                            </opaqueInsets>
+                                        </TableView>
+                                    </children>
+                                </VBox>
+                            </items>
+                        </SplitPane>
                     </children>
                 </VBox>
                 <TabPane fx:id="visualTabPane" prefHeight="579.0" prefWidth="560.0" tabClosingPolicy="UNAVAILABLE">
                     <tabs>
                         <Tab text="Візуалізація">
                             <content>
-                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="772.0" prefWidth="484.0">
                                     <children>
-                                        <Region layoutX="-1.0" prefHeight="769.0" prefWidth="560.0" style="-fx-background-color: gray;" />
+                                        <Region layoutX="-1.0" prefHeight="782.0" prefWidth="459.0" style="-fx-background-image: url('map.png'); -fx-background-repeat: no-repeat;" />
+                                        <Button fx:id="startAnimation" layoutX="475.0" layoutY="80.0" onAction="#startAnimationAction" text="Start" />
+                                        <Button fx:id="stopAnimation" disable="true" layoutX="475.0" layoutY="116.0" onAction="#stopAnimationAction" text="Stop" />
+                                        <Pane fx:id="contentPane" prefHeight="445.0" prefWidth="238.0" />
+                                        <Label fx:id="label" layoutX="479.0" layoutY="14.0" text="Speed" />
+                                        <TextField fx:id="speedField" layoutX="469.0" layoutY="37.0" prefHeight="31.0" prefWidth="62.0" text="0.05" />
+                                        <Button fx:id="pauseAnimation" disable="true" layoutX="475.0" layoutY="197.0" onAction="#pauseAnimationAction" text="Pause" />
+                                        <Button fx:id="resumeAnimation" disable="true" layoutX="475.0" layoutY="232.0" onAction="#resumeAnimationAction" text="Resume" />
                                     </children>
                                 </AnchorPane>
                             </content>
                         </Tab>
                         <Tab text="Статистика">
                             <content>
-                        <ScrollPane>
-                           <content>
-                                      <AnchorPane prefHeight="200.0" prefWidth="200.0">
-                                          <children>
-                                              <LineChart fx:id="transportLineChart" prefHeight="327.0" prefWidth="544.0" title="Заповненість транспорту" AnchorPane.rightAnchor="-2.0">
-                                                  <xAxis>
-                                                      <CategoryAxis fx:id="timeAxis" label="Час" side="BOTTOM" />
-                                                  </xAxis>
-                                                  <yAxis>
-                                                      <NumberAxis fx:id="passengersAxis" label="Пасажири" side="LEFT" />
-                                                  </yAxis>
-                                              </LineChart>
-                                              <LineChart fx:id="stopsLineChart" layoutY="345.0" maxHeight="1.7976931348623157E308" minHeight="321.0" prefHeight="362.0" prefWidth="535.0" title="Заповненість зупинок" AnchorPane.rightAnchor="7.0">
-                                                  <xAxis>
-                                                      <CategoryAxis fx:id="timeAxis1" label="Час" side="BOTTOM" />
-                                                  </xAxis>
-                                                  <yAxis>
-                                                      <NumberAxis fx:id="passengersAxis1" label="Пасажири" side="LEFT" />
-                                                  </yAxis>
-                                              </LineChart>
-                                          </children>
-                                      </AnchorPane>
-                           </content>
-                        </ScrollPane>
+                                <ScrollPane>
+                                    <content>
+                                        <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                                            <children>
+                                                <LineChart fx:id="transportLineChart" prefHeight="327.0" prefWidth="544.0" title="Заповненість транспорту" AnchorPane.rightAnchor="-2.0">
+                                                    <xAxis>
+                                                        <CategoryAxis fx:id="timeAxis" label="Час" side="BOTTOM" />
+                                                    </xAxis>
+                                                    <yAxis>
+                                                        <NumberAxis fx:id="passengersAxis" label="Пасажири" side="LEFT" />
+                                                    </yAxis>
+                                                </LineChart>
+                                                <LineChart fx:id="stopsLineChart" layoutY="345.0" maxHeight="1.7976931348623157E308" minHeight="321.0" prefHeight="362.0" prefWidth="535.0" title="Заповненість зупинок" AnchorPane.rightAnchor="7.0">
+                                                    <xAxis>
+                                                        <CategoryAxis fx:id="timeAxis1" label="Час" side="BOTTOM" />
+                                                    </xAxis>
+                                                    <yAxis>
+                                                        <NumberAxis fx:id="passengersAxis1" label="Пасажири" side="LEFT" />
+                                                    </yAxis>
+                                                </LineChart>
+                                            </children>
+                                        </AnchorPane>
+                                    </content>
+                                </ScrollPane>
                             </content>
                         </Tab>
-                        <Tab text="Карта">
-                            <content>
-                                <WebView fx:id="gmaps" prefHeight="200.0" prefWidth="200.0" />
-                            </content>
-                        </Tab>
+                        <!--<Tab text="Карта">-->
+                        <!--<content>-->
+                        <!--<WebView fx:id="gmaps" prefHeight="200.0" prefWidth="200.0" />-->
+                        <!--</content>-->
+                        <!--</Tab>-->
                     </tabs>
                 </TabPane>
-         </items>
-      </SplitPane>
+            </items>
+        </SplitPane>
     </children>
 </VBox>
