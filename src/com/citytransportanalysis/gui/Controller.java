@@ -5,10 +5,14 @@ import com.citytransportanalysis.modeling.entity.RouteSegment;
 import com.citytransportanalysis.modeling.entity.Stop;
 import com.citytransportanalysis.modeling.entity.Transport;
 import com.citytransportanalysis.utils.ExceptionDialog;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.fxml.FXML;
 import javafx.scene.SnapshotParameters;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.LineChart;
@@ -17,11 +21,17 @@ import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.WritableImage;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 import javafx.scene.web.WebView;
 import javafx.util.Callback;
+import javafx.util.Duration;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
@@ -86,6 +96,329 @@ public class Controller extends Modeling{
     private int percentPlaces;
 
     private LocalTime chosenStartTime, chosenEndTime;
+
+    /**
+     *  ВИЗУАЛИЗАЦИЯ
+     */
+
+    public TextField speedField;
+
+    Timeline timeline;
+
+
+    Text livober;
+    Text entuz;
+    Text entuz2;
+    Text bridge;
+    Text bridge2;
+    Text library;
+    Text library2;
+    Text buvet;
+    Text buvet2;
+    Text post;
+    Text post2;
+    Text davidova;
+    Text davidova2;
+    Text okipnoi;
+    Text slavutich;
+    String hourString;
+    String minuteString;
+    String secondString = "00";
+    String resultString;
+    StackPane stack;
+    int second;
+    int minute;
+    int hour;
+
+
+    @FXML
+    private Pane contentPane;
+    @FXML
+    private Button startAnimation;
+    @FXML
+    private Button stopAnimation;
+    @FXML
+    private Button pauseAnimation;
+    @FXML
+    private Button resumeAnimation;
+
+    @FXML
+    private void startAnimationAction(ActionEvent event) throws InterruptedException {
+
+        contentPane.getChildren().removeAll(stack,livober, entuz, entuz2, bridge, bridge2, library, library2, buvet, buvet2, post, post, davidova, davidova2,okipnoi, slavutich);
+
+        String startTime = timeFromTextField.getText(); //get start time from field
+        //String endTime = timeToTextField.getText();
+        hourString  = startTime.substring(0,2);
+        minuteString = startTime.substring(3,5);
+        resultString = hourString + ":" + minuteString + ":" + secondString;
+
+        second = Integer.parseInt(secondString);
+        minute = Integer.parseInt(minuteString);
+        hour = Integer.parseInt(hourString);
+
+
+        int cycleCount;
+        String endTime = list.get(list.size()-1)[0];
+        if (endTime.length()==8)
+        {
+            String hourEnd = endTime.substring(0,2); //get end time from field
+            String minuteEnd = endTime.substring(3,5);
+            String secondEnd = endTime.substring(6,8);
+            int middleHour = Integer.parseInt(hourEnd) - hour; //count cycle Count
+            int middleMinute = Math.abs(Integer.parseInt(minuteEnd) - minute);
+            int middleSecond = Integer.parseInt(secondEnd);
+            cycleCount = middleHour*3600 + middleMinute*60 + middleSecond;
+        } else {
+            String hourEnd = endTime.substring(0,2); //get end time from field
+            String minuteEnd = endTime.substring(3,5);
+            int middleHour = Integer.parseInt(hourEnd) - hour; //count cycle Count
+            int middleMinute = Math.abs(Integer.parseInt(minuteEnd) - minute);
+            cycleCount = middleHour*3600 + middleMinute*60;
+        }
+
+
+        Rectangle rectTime = new Rectangle(100, 100, 95, 30); //time rectangle
+        rectTime.setFill(Color.rgb(170,180,173));
+        final Text text = new Text ();
+        stack = new StackPane();
+
+        livober = new Text (140, 30, "");
+        livober.setFont(Font.font("Verdana", FontWeight.BLACK, 9));
+
+        entuz2 = new Text(45, 145, "");
+        entuz2.setFont(Font.font("Verdana", FontWeight.BLACK, 9));
+
+        entuz = new Text(30, 215, "");
+        entuz.setFont(Font.font("Verdana", FontWeight.BLACK, 9));
+
+        bridge2 = new Text(220, 220, "");
+        bridge2.setFont(Font.font("Verdana", FontWeight.BLACK, 9));
+
+        bridge = new Text(185, 295, "");
+        bridge.setFont(Font.font("Verdana", FontWeight.BLACK, 9));
+
+        library2 = new Text(390, 300, "");
+        library2.setFont(Font.font("Verdana", FontWeight.BLACK, 9));
+
+        library = new Text(270, 330, "");
+        library.setFont(Font.font("Verdana", FontWeight.BLACK, 9));
+
+        buvet2 = new Text(420, 365, "");
+        buvet2.setFont(Font.font("Verdana", FontWeight.BLACK, 9));
+
+        buvet = new Text(325, 405, "");
+        buvet.setFont(Font.font("Verdana", FontWeight.BLACK, 9));
+
+        post2 = new Text(380, 500, "");
+        post2.setFont(Font.font("Verdana", FontWeight.BLACK, 9));
+
+        post = new Text(295, 470, "");
+        post.setFont(Font.font("Verdana", FontWeight.BLACK, 9));
+
+        davidova2 = new Text(265, 570, "");
+        davidova2.setFont(Font.font("Verdana", FontWeight.BLACK, 9));
+
+        davidova = new Text(145, 555, "");
+        davidova.setFont(Font.font("Verdana", FontWeight.BLACK, 9));
+
+        okipnoi = new Text(105, 90, "");
+        okipnoi.setFont(Font.font("Verdana", FontWeight.BLACK, 9));
+
+        slavutich = new Text(145, 635, "");
+        slavutich.setFont(Font.font("Verdana", FontWeight.BLACK, 9));
+
+        double millils = Double.parseDouble(speedField.getText());
+        timeline = new Timeline(
+                new KeyFrame(Duration.seconds(millils),
+                        new EventHandler<ActionEvent>() {
+                            @Override public void handle(ActionEvent actionEvent) {
+                                second++;
+                                if (second == 60) {
+                                    second = 00;
+                                    minute++;
+                                    if (minute == 60) {
+                                        minute = 00;
+                                        hour++;
+                                        if (hour == 24) {
+                                            hour = 00;
+                                        }
+                                    }
+                                }
+                                resultString = String.format("%02d", hour) + ":" + String.format("%02d", minute) + ":" + String.format("%02d", second);
+                                text.setText(resultString);
+
+
+                                String timeToCompare;
+                                if (second == 0) {
+                                    timeToCompare = String.format("%02d", hour) + ":" + String.format("%02d", minute);
+                                } else {
+                                    timeToCompare = String.format("%02d", hour) + ":" + String.format("%02d", minute) + ":" + String.format("%02d", second);
+                                }
+                                for (int i=0; i<list.size()-1; i++)
+                                {
+                                    if (timeToCompare.equals(list.get(i)[0])) {
+                                        String setInfo = String.format("#%s\nout %s(%s)\nin %s(%s)\nleft %s", list.get(i)[1], list.get(i)[6], list.get(i)[7], list.get(i)[3], list.get(i)[4], list.get(i)[5]);
+                                        String strStyle;
+                                        if (Integer.parseInt(list.get(i)[5])>0)
+                                        {
+                                            strStyle = "-fx-effect: dropshadow( one-pass-box , red , 8 , 0.0 , 1 , 0 )";
+                                        } else {
+                                            strStyle = "";
+                                        }
+
+
+                                        if ("livober".equals(list.get(i)[2])) {
+                                            livober.setText(setInfo);
+                                            livober.setFill(Color.web(String.valueOf(busColors.get(list.get(i)[1]))));
+                                            livober.setStyle(strStyle);
+                                        }
+
+
+                                        if ("entuz".equals(list.get(i)[2])) {
+                                            entuz.setText(setInfo);
+                                            entuz.setFill(Color.web(String.valueOf(busColors.get(list.get(i)[1]))));
+                                            entuz.setStyle(strStyle);
+                                        }
+
+                                        if ("entuz2".equals(list.get(i)[2])) {
+                                            entuz2.setText(setInfo);
+                                            entuz2.setFill(Color.web(String.valueOf(busColors.get(list.get(i)[1]))));
+                                            entuz2.setStyle(strStyle);
+                                        }
+
+                                        if ("bridge".equals(list.get(i)[2])) {
+                                            bridge.setText(setInfo);
+                                            bridge.setFill(Color.web(String.valueOf(busColors.get(list.get(i)[1]))));
+                                            bridge.setStyle(strStyle);
+                                        }
+
+                                        if ("bridge2".equals(list.get(i)[2])) {
+                                            bridge2.setText(setInfo);
+                                            bridge2.setFill(Color.web(String.valueOf(busColors.get(list.get(i)[1]))));
+                                            bridge2.setStyle(strStyle);
+                                        }
+
+                                        if ("library".equals(list.get(i)[2])) {
+                                            library.setText(setInfo);
+                                            library.setFill(Color.web(String.valueOf(busColors.get(list.get(i)[1]))));
+                                            library.setStyle(strStyle);
+                                        }
+
+                                        if ("library2".equals(list.get(i)[2])) {
+                                            library2.setText(setInfo);
+                                            library2.setFill(Color.web(String.valueOf(busColors.get(list.get(i)[1]))));
+                                            library2.setStyle(strStyle);
+                                        }
+
+                                        if ("buvet".equals(list.get(i)[2])) {
+                                            buvet.setText(setInfo);
+                                            buvet.setFill(Color.web(String.valueOf(busColors.get(list.get(i)[1]))));
+                                            buvet.setStyle(strStyle);
+                                        }
+
+                                        if ("buvet2".equals(list.get(i)[2])) {
+                                            buvet2.setText(setInfo);
+                                            buvet2.setFill(Color.web(String.valueOf(busColors.get(list.get(i)[1]))));
+                                            buvet2.setStyle(strStyle);
+                                        }
+                                        if ("post".equals(list.get(i)[2])) {
+                                            post.setText(setInfo);
+                                            post.setFill(Color.web(String.valueOf(busColors.get(list.get(i)[1]))));
+                                            post.setStyle(strStyle);
+                                        }
+
+                                        if ("post2".equals(list.get(i)[2])) {
+                                            post2.setText(setInfo);
+                                            post2.setFill(Color.web(String.valueOf(busColors.get(list.get(i)[1]))));
+                                            post2.setStyle(strStyle);
+                                        }
+                                        if ("davidova".equals(list.get(i)[2])) {
+                                            davidova.setText(setInfo);
+                                            davidova.setFill(Color.web(String.valueOf(busColors.get(list.get(i)[1]))));
+                                            davidova.setStyle(strStyle);
+                                        }
+
+                                        if ("davidova2".equals(list.get(i)[2])) {
+                                            davidova2.setText(setInfo);
+                                            davidova2.setFill(Color.web(String.valueOf(busColors.get(list.get(i)[1]))));
+                                            davidova2.setStyle(strStyle);
+                                        }
+
+                                        if ("okipnoi".equals(list.get(i)[2])) {
+                                            okipnoi.setText(setInfo);
+                                            okipnoi.setFill(Color.web(String.valueOf(busColors.get(list.get(i)[1]))));
+                                            okipnoi.setStyle(strStyle);
+                                        }
+
+                                        if ("slavutich".equals(list.get(i)[2])) {
+                                            slavutich.setText(setInfo);
+                                            slavutich.setFill(Color.web(String.valueOf(busColors.get(list.get(i)[1]))));
+                                            slavutich.setStyle(strStyle);
+                                        }
+//                                        list.remove(i);
+                                    }
+                                }
+                            }
+                        }
+                ),
+                new KeyFrame(Duration.seconds(millils))
+        );
+        text.setFont(Font.font(18));
+        stack.getChildren().addAll(rectTime, text);
+        contentPane.getChildren().addAll(stack, okipnoi, slavutich);
+        contentPane.getChildren().addAll(livober, entuz, entuz2, bridge, bridge2, library, library2, buvet, buvet2, post, post2, davidova, davidova2);
+
+        timeline.setCycleCount(cycleCount);
+        timeline.playFromStart();
+
+        speedField.setDisable(false);
+        startAnimation.setDisable(false);
+        stopAnimation.setDisable(false);
+        pauseAnimation.setDisable(false);
+        resumeAnimation.setDisable(true);
+
+    }
+
+    @FXML
+    public void stopAnimationAction(ActionEvent actionEvent) {
+        contentPane.getChildren().removeAll(stack,livober, entuz, entuz2, bridge, bridge2, library, library2, buvet, buvet2, post, post, davidova, davidova2,okipnoi, slavutich);
+        timeline.stop();
+
+        speedField.setDisable(false);
+        startAnimation.setDisable(false);
+        stopAnimation.setDisable(true);
+        pauseAnimation.setDisable(true);
+        resumeAnimation.setDisable(true);
+
+    }
+
+    @FXML
+    public void pauseAnimationAction(ActionEvent actionEvent) {
+        timeline.pause();
+
+        speedField.setDisable(true);
+        startAnimation.setDisable(true);
+        stopAnimation.setDisable(true);
+        pauseAnimation.setDisable(true);
+        resumeAnimation.setDisable(false);
+    }
+
+    @FXML
+    public void resumeAnimationAction(ActionEvent actionEvent) {
+        timeline.play();
+
+        speedField.setDisable(false);
+        startAnimation.setDisable(false);
+        stopAnimation.setDisable(false);
+        pauseAnimation.setDisable(false);
+        resumeAnimation.setDisable(true);
+
+    }
+
+    /**
+     *  КОНЕЦ ВИЗУАЛИЗАЦИИ
+     */
 
     public void initialize() {
         /* Стартовые значения */
@@ -244,7 +577,7 @@ public class Controller extends Modeling{
                 };
             }
         });     // отмечает транспорт не подходящие по требованиям
-        gmaps.getEngine().load(getClass().getResource("/gmaps/index.html").toExternalForm());
+//        gmaps.getEngine().load(getClass().getResource("/gmaps/index.html").toExternalForm());
     }
 
 

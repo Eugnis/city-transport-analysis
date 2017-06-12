@@ -18,9 +18,38 @@ public class Modeling {
      * список событий
      */
     public List<Event> eventsLog;
+    public static List<String[]> list = new ArrayList<String[]>();
+    public static String[] l = new String[8];
+    public static Map busColors = new HashMap();
+
     public Modeling() {
         System.out.println("Modeling init.");
         eventsLog = new ArrayList<>();
+
+        busColors.put("1", "#000080");
+        busColors.put("2", "#006400");
+        busColors.put("3", "#FF1493");
+        busColors.put("4", "#00DD99");
+        busColors.put("5", "#DC143C");
+        busColors.put("6", "#800080");
+        busColors.put("7", "#00FA9A");
+        busColors.put("8", "#FF0000");
+        busColors.put("9", "#582A72");
+        busColors.put("10", "#9932CC");
+        busColors.put("11", "#226666");
+
+        busColors.put("12", "#000080");
+        busColors.put("13", "#006400");
+        busColors.put("14", "#FF1493");
+        busColors.put("15", "#00FF00");
+        busColors.put("16", "#DC143C");
+        busColors.put("17", "#800080");
+        busColors.put("18", "#00FA9A");
+        busColors.put("19", "#FF0000");
+        busColors.put("20", "#582A72");
+        busColors.put("21", "#9932CC");
+        busColors.put("22", "#226666");
+
     }
 
 
@@ -260,22 +289,22 @@ public class Modeling {
                 put(LocalTime.parse("22:00"), 1.0);
             }
         };
-        Stop stop1 = new Stop("Станція метро \"Лівобережна\"", passengerComingTimeGen(), passengerExitProbability, 30);
-        Stop stop2 = new Stop("Вулиця Ентузіастів", passengerComingTimeGen(), passengerExitProbabilityGen(), 20);
-        Stop stop3 = new Stop("Пішохідний міст", passengerComingTimeGen(), passengerExitProbabilityGen(), 20);
-        Stop stop4 = new Stop("Бібліотека", passengerComingTimeGen(), passengerExitProbabilityGen(), 20);
-        Stop stop5 = new Stop("Бювет", passengerComingTimeGen(), passengerExitProbabilityGen(), 20);
-        Stop stop6 = new Stop("Пошта №154", passengerComingTimeGen(), passengerExitProbabilityGen(), 20);
-        Stop stop7 = new Stop("Бульвар Олексія Давидова", passengerComingTimeGen(), passengerExitProbabilityGen(), 20);
-        Stop stop8 = new Stop("Готель \"Славутич\"", passengerComingTimeGen(), passengerExitProbabilityGen(), 20);
-        Stop stop9 = new Stop("Бульвар Олексія Давидова", passengerComingTimeGen(), passengerExitProbabilityGen(), 20);
-        Stop stop10 = new Stop("Пошта №154", passengerComingTimeGen(), passengerExitProbabilityGen(), 20);
-        Stop stop11 = new Stop("Залізнична платформа Київ-Русанівка", passengerComingTimeGen(), passengerExitProbabilityGen(), 20);
-        Stop stop12 = new Stop("Бібліотека", passengerComingTimeGen(), passengerExitProbabilityGen(), 20);
-        Stop stop13 = new Stop("Пішохідний міст", passengerComingTimeGen(), passengerExitProbabilityGen(), 20);
-        Stop stop14 = new Stop("Вулиця Ентузіастів", passengerComingTimeGen(), passengerExitProbabilityGen(), 20);
-        Stop stop15 = new Stop("Вулиця Раїси Окіпної", passengerComingTimeGen(), passengerExitProbabilityGen(), 20);
-        Stop stop16 = new Stop("Станція метро \"Лівобережна\"", passengerComingTimeLast, passengerExitProbabilityLast, 30);
+        Stop stop1 = new Stop("Станція метро \"Лівобережна\"", passengerComingTimeGen(), passengerExitProbability, 30, "livober");
+        Stop stop2 = new Stop("Вулиця Ентузіастів", passengerComingTimeGen(), passengerExitProbabilityGen(), 20, "entuz");
+        Stop stop3 = new Stop("Пішохідний міст", passengerComingTimeGen(), passengerExitProbabilityGen(), 20, "bridge");
+        Stop stop4 = new Stop("Бібліотека", passengerComingTimeGen(), passengerExitProbabilityGen(), 20, "library");
+        Stop stop5 = new Stop("Бювет", passengerComingTimeGen(), passengerExitProbabilityGen(), 20, "buvet");
+        Stop stop6 = new Stop("Пошта №154", passengerComingTimeGen(), passengerExitProbabilityGen(), 20, "post");
+        Stop stop7 = new Stop("Бульвар Олексія Давидова", passengerComingTimeGen(), passengerExitProbabilityGen(), 20, "davidova");
+        Stop stop8 = new Stop("Готель \"Славутич\"", passengerComingTimeGen(), passengerExitProbabilityGen(), 20, "slavutich");
+        Stop stop9 = new Stop("Бульвар Олексія Давидова", passengerComingTimeGen(), passengerExitProbabilityGen(), 20, "davidova2");
+        Stop stop10 = new Stop("Пошта №154", passengerComingTimeGen(), passengerExitProbabilityGen(), 20, "post2");
+        Stop stop11 = new Stop("Залізнична платформа Київ-Русанівка", passengerComingTimeGen(), passengerExitProbabilityGen(), 20, "buvet2");
+        Stop stop12 = new Stop("Бібліотека", passengerComingTimeGen(), passengerExitProbabilityGen(), 20, "library2");
+        Stop stop13 = new Stop("Пішохідний міст", passengerComingTimeGen(), passengerExitProbabilityGen(), 20, "bridge2");
+        Stop stop14 = new Stop("Вулиця Ентузіастів", passengerComingTimeGen(), passengerExitProbabilityGen(), 20, "entuz2");
+        Stop stop15 = new Stop("Вулиця Раїси Окіпної", passengerComingTimeGen(), passengerExitProbabilityGen(), 20, "okipnoi");
+        Stop stop16 = new Stop("Станція метро \"Лівобережна\"", passengerComingTimeLast, passengerExitProbabilityLast, 30, "livober");
 
 
         LinkedList<RouteSegment> routeSegments = new LinkedList<>();
@@ -423,10 +452,20 @@ public class Modeling {
                 case RouteFinish:
                     return String.format("Кінець руху о %s. Пройдено за %s секунд\n", transport.getCurrentTime(), transport.getMoveTime());
                 case OnStop:
+                    l[0] = (String.format("%s",transport.getCurrentTime()));
+                    l[1] = (String.format("%s",getTransportId()));
+                    l[2] = (String.format("%s", stop.getIdName()));
                     return String.format("Зупинка на зупинці \"%s\" %s секунд\n", stop.getName(), stop.getWaitTime());
                 case OnWay:
                     return String.format("Їде між зупинками \"%s\" і \"%s\" %s секунд\n", routeSegment.getTwoStops().get(0).getName(), routeSegment.getTwoStops().get(1).getName(), routeSegment.getPassingTime());
                 case SittingPassenger:
+                    l[3] = (String.format("%s",stop.getSittedPassengers()));
+                    l[4] = (String.format("%s/%s",transport.getOccupiedPlaces(), transport.getTotalPlaces()));
+                    l[5] = (String.format("%s",stop.getPassengers().size()));
+                    l[6] = (String.format("%s",stop.getGettedOutPassengers()));
+                    l[7] = (String.format("%s/%s",transport.getOccupiedPlaces()-stop.getSittedPassengers(), transport.getTotalPlaces()));
+
+                    list.add(new String[]{l[0], l[1], l[2], l[3], l[4], l[5], l[6], l[7]});
                     return String.format("Посадка. Зайшло %d чел, зайнято %d/%d місць. Не зайшло %d чел\n", stop.getSittedPassengers(), transport.getOccupiedPlaces(), transport.getTotalPlaces(), stop.getPassengers().size());
                 case GettingOutPassenger:
                     return String.format("Висадка. Вийшло %d чел, зайнято %d/%d місць.\n", stop.getGettedOutPassengers(), transport.getOccupiedPlaces(), transport.getTotalPlaces());

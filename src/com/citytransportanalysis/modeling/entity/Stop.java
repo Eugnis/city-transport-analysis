@@ -11,11 +11,13 @@ import java.util.Map;
  * Stop entity representing stop.
  */
 public class Stop {
+
     private String name;
     private LinkedList<Passenger> passengers;
     private Map<LocalTime, Double> passengerComingTime;
     private Map<LocalTime, Double> passengerExitProbability;
     private double waitTime;
+    private final String idName;
     private LocalTime lastPasengersGeneration;
 
     private int sittedPassengers;
@@ -32,11 +34,12 @@ public class Stop {
      * @param passengerExitProbability список вероятности прихода пассажиров для каждого часа {@link Map}<{@link LocalTime}, {@link Double}>
      * @param waitTime                 время ожидания на остановке
      */
-    public Stop(String name, Map<LocalTime, Double> passengerComingTime, Map<LocalTime, Double> passengerExitProbability, double waitTime) {
+    public Stop(String name, Map<LocalTime, Double> passengerComingTime, Map<LocalTime, Double> passengerExitProbability, double waitTime, String idName) {
         this.name = name;
         this.passengerComingTime = passengerComingTime;
         this.passengerExitProbability = passengerExitProbability;
         this.waitTime = waitTime;
+        this.idName = idName;
         passengers = new LinkedList<>();
     }
 
@@ -51,6 +54,8 @@ public class Stop {
     public LinkedList<Passenger> getPassengers() {
         return passengers;
     }
+
+    public String getIdName() {return idName;}
 
     /** Генерация пассажиров
      * @param time текущее время
