@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<transport>
+	<marshrutka sitplaces="22" standplaces="21" minutesperiod="10">
+	</marshrutka>
+	<marshrutka sitplaces="22" standplaces="21" minutesperiod="10">
+	</marshrutka>
+	<marshrutka sitplaces="22" standplaces="21" minutesperiod="10">
+	</marshrutka>
+	<marshrutka sitplaces="22" standplaces="21" minutesperiod="10">
+	</marshrutka>
+	<marshrutka sitplaces="22" standplaces="21" minutesperiod="10">
+	</marshrutka>
+</transport>

@@ -180,7 +180,7 @@ public class ReadingXML {
         //LinkedList<RouteSegment> routeSegments = new LinkedList<>();
 
         try {
-            File fXmlFile = new File("route1.xml");
+            File fXmlFile = new File("route.xml");
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
             Document doc = dBuilder.parse(fXmlFile);
@@ -189,6 +189,7 @@ public class ReadingXML {
 
             NodeList nList = doc.getElementsByTagName("zupynka");
             double passingtime = 0, length = 0;
+            String startTime = "", endTime = "";
 
             for (int temp = 0; temp < nList.getLength(); temp++) {
 
@@ -197,6 +198,30 @@ public class ReadingXML {
                 if (nNode.getNodeType() == Node.ELEMENT_NODE) {
 
                     Element eElement = (Element) nNode;
+
+/*
+                    startTime = eElement.getElementsByTagName("time").item(0).getAttributes().item(0).getNodeValue().toString();
+                    endTime = eElement.getElementsByTagName("time").item(eElement.getElementsByTagName("time").getLength()-1).getAttributes().item(0).getNodeValue().toString();
+
+
+                    Map<LocalTime, Double> passengerComingTimeMy = new HashMap<LocalTime, Double>() {
+                        {
+                            for (int i = 0; i < eElement.getElementsByTagName("time").getLength(); i++) {
+                                put(LocalTime.parse(eElement.getElementsByTagName("time").item(i).getAttributes().item(0).getNodeValue().toString()), Double.parseDouble(eElement.getElementsByTagName("comingtime").item(i).getTextContent().toString()));
+                            }
+                        }
+                    };
+                    Map<LocalTime, Double> passengerExitProbabilityMy = new HashMap<LocalTime, Double>() {
+                        {
+                            for (int i = 0; i < eElement.getElementsByTagName("time").getLength(); i++) {
+                                put(LocalTime.parse(eElement.getElementsByTagName("time").item(i).getAttributes().item(0).getNodeValue().toString()), Double.parseDouble(eElement.getElementsByTagName("exitprobability").item(i).getTextContent().toString()));
+                            }
+                        }
+                    };
+
+                    stopList.add(new Stop(eElement.getAttribute("name"), passengerComingTimeMy, passengerExitProbabilityMy, Double.parseDouble(eElement.getAttribute("waittime")), eElement.getAttribute("idname")));
+*/
+
 
                     if (temp != 0 && temp != nList.getLength()-1) {
                         stopList.add(new Stop(eElement.getAttribute("name"), passengerComingTimeGen(), passengerExitProbabilityGen(), Double.parseDouble(eElement.getAttribute("waittime")), eElement.getAttribute("idname")));

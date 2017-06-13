@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<route>
+	<zupynka name="Станція метро Лівобережна" idname="livober" waittime="30" passingtime="200" length="1000">
+		<time value="">
+			<comingtime></comingtime>
+			<exitprobability></exitprobability>
+		</time>
+	</zupynka>
+	<zupynka name="Вулиця Ентузіастів" idname="entuz" waittime="20" passingtime="100" length="500">
+		<time value="">
+			<comingtime></comingtime>
+			<exitprobability></exitprobability>
+		</time>
+	</zupynka>
+	<zupynka name="Пішохіжний міст" idname="bridge" waittime="20" passingtime="100" length="500">
+		<time value="">
+			<comingtime></comingtime>
+			<exitprobability></exitprobability>
+		</time>	
+	</zupynka>
+	<zupynka name="Бібліотека" idname="library" waittime="20" passingtime="60" length="300">
+		<time value="">
+			<comingtime></comingtime>
+			<exitprobability></exitprobability>
+		</time>
+	</zupynka>
+	<zupynka name="Бювет" idname="buvet" waittime="20" passingtime="60" length="300">
+		<time value="">
+			<comingtime></comingtime>
+			<exitprobability></exitprobability>
+		</time>
+	</zupynka>
+	<zupynka name="Пошта №154" idname="post" waittime="20" passingtime="120" length="600">
+		<time value="">
+			<comingtime></comingtime>
+			<exitprobability></exitprobability>
+		</time>		
+	</zupynka>
+	<zupynka name="Бульвар Олексія Давидова" idname="davidova" waittime="20" passingtime="80" length="400">
+		<time value="">
+			<comingtime></comingtime>
+			<exitprobability></exitprobability>
+		</time>
+	</zupynka>
+	<zupynka name="Готель Славутич" idname="slavutich" waittime="20" passingtime="80" length="400">
+		<time value="">
+			<comingtime></comingtime>
+			<exitprobability></exitprobability>
+		</time>
+	</zupynka>
+	<zupynka name="Бульвар Олексія Давидова" idname="davidova2" waittime="20" passingtime="80" length="400">
+		<time value="">
+			<comingtime></comingtime>
+			<exitprobability></exitprobability>
+		</time>		
+	</zupynka>
+	<zupynka name="Пошта №154" idname="post2" waittime="20" passingtime="80" length="400">
+		<time value="">
+			<comingtime></comingtime>
+			<exitprobability></exitprobability>
+		</time>
+	</zupynka>
+	<zupynka name="Залізнична платформа Київ-Русанівка" idname="buvet2" waittime="20" passingtime="60" length="300">
+		<time value="">
+			<comingtime></comingtime>
+			<exitprobability></exitprobability>
+		</time>
+	</zupynka>
+	<zupynka name="Бібліотека" idname="library2" waittime="20" passingtime="120" length="600">
+		<time value="">
+			<comingtime></comingtime>
+			<exitprobability></exitprobability>
+		</time>		
+	</zupynka>
+	<zupynka name="Пішохіжний міст" idname="bridge2" waittime="20" passingtime="100" length="500">
+		<time value="">
+			<comingtime></comingtime>
+			<exitprobability></exitprobability>
+		</time>		
+	</zupynka>
+	<zupynka name="Вулиця Ентузіастів" idname="entuz2" waittime="20" passingtime="100" length="500">
+		<time value="">
+			<comingtime></comingtime>
+			<exitprobability></exitprobability>
+		</time>
+	</zupynka>
+	<zupynka name="Вулиця Раїси Окіпної" idname="okipnoi" waittime="20" passingtime="120" length="600">
+		<time value="">
+			<comingtime></comingtime>
+			<exitprobability></exitprobability>
+		</time>
+	</zupynka>
+	<zupynka name="Станція метро Лівобережна" idname="livober" waittime="30" passingtime="0" length="0">
+		<time value="">
+			<comingtime></comingtime>
+			<exitprobability></exitprobability>
+		</time>
+	</zupynka>
+</route>
