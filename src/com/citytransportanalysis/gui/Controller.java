@@ -29,7 +29,6 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
-import javafx.scene.web.WebView;
 import javafx.util.Callback;
 import javafx.util.Duration;
 import net.sf.jasperreports.engine.JasperFillManager;
@@ -39,7 +38,6 @@ import net.sf.jasperreports.swing.JRViewer;
 
 import javax.swing.*;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.InputStream;
 import java.time.LocalTime;
 import java.util.*;
@@ -72,7 +70,6 @@ public class Controller extends Modeling{
     public LineChart stopsLineChart;
     public CategoryAxis timeAxis;
     public NumberAxis passengersAxis;
-    public WebView gmaps;
     public SplitPane logSplitPane;
     public TabPane visualTabPane;
 
@@ -99,38 +96,14 @@ public class Controller extends Modeling{
     private LocalTime chosenStartTime, chosenEndTime;
 
     /**
-     *  ВИЗУАЛИЗАЦИЯ
+     *  VISUALIZATION
      */
 
-    public TextField speedField;
-
-    Timeline timeline;
-
-
-    Text livober;
-    Text entuz;
-    Text entuz2;
-    Text bridge;
-    Text bridge2;
-    Text library;
-    Text library2;
-    Text buvet;
-    Text buvet2;
-    Text post;
-    Text post2;
-    Text davidova;
-    Text davidova2;
-    Text okipnoi;
-    Text slavutich;
-    String hourString;
-    String minuteString;
-    String secondString = "00";
-    String resultString;
-    StackPane stack;
-    int second;
-    int minute;
-    int hour;
-
+    private Text livober, entuz, entuz2, bridge, bridge2, library, library2, buvet, buvet2, post, post2, davidova, davidova2, okipnoi, slavutich;
+    private StackPane stack;
+    private String resultTime;
+    private int second, minute, hour;
+    private Timeline timeline;
 
     @FXML
     private Pane contentPane;
@@ -142,236 +115,162 @@ public class Controller extends Modeling{
     private Button pauseAnimation;
     @FXML
     private Button resumeAnimation;
+    @FXML
+    private TextField speedField;
 
     @FXML
     private void startAnimationAction(ActionEvent event) throws InterruptedException {
 
         contentPane.getChildren().removeAll(stack,livober, entuz, entuz2, bridge, bridge2, library, library2, buvet, buvet2, post, post2, davidova, davidova2,okipnoi, slavutich);
-
-        String startTime = timeFromTextField.getText(); //get start time from field
-        //String endTime = timeToTextField.getText();
-        hourString  = startTime.substring(0,2);
-        minuteString = startTime.substring(3,5);
-        resultString = hourString + ":" + minuteString + ":" + secondString;
-
-        second = Integer.parseInt(secondString);
-        minute = Integer.parseInt(minuteString);
-        hour = Integer.parseInt(hourString);
-
-        List<String[]> list = new ArrayList<String[]>(mainList);
-
-        int cycleCount;
-        String endTime = list.get(list.size()-1)[0];
-        if (endTime.length()==8)
-        {
-            String hourEnd = endTime.substring(0,2); //get end time from field
-            String minuteEnd = endTime.substring(3,5);
-            String secondEnd = endTime.substring(6,8);
-            int middleHour = Integer.parseInt(hourEnd) - hour; //count cycle Count
-            int middleMinute = Math.abs(Integer.parseInt(minuteEnd) - minute);
-            int middleSecond = Integer.parseInt(secondEnd);
-            cycleCount = middleHour*3600 + middleMinute*60 + middleSecond;
-        } else {
-            String hourEnd = endTime.substring(0,2); //get end time from field
-            String minuteEnd = endTime.substring(3,5);
-            int middleHour = Integer.parseInt(hourEnd) - hour; //count cycle Count
-            int middleMinute = Math.abs(Integer.parseInt(minuteEnd) - minute);
-            cycleCount = middleHour*3600 + middleMinute*60;
-        }
-
+        List<String[]> list = new ArrayList<>(mainList);
 
         Rectangle rectTime = new Rectangle(100, 100, 95, 30); //time rectangle
         rectTime.setFill(Color.rgb(170,180,173));
-        final Text text = new Text ();
-        stack = new StackPane();
+        final Text timeText = new Text ();
+        timeText.setFont(Font.font(18));
+
+        Font stopFont = Font.font("Verdana", FontWeight.BLACK, 9);
 
         livober = new Text (140, 30, "");
-        livober.setFont(Font.font("Verdana", FontWeight.BLACK, 9));
-
-        entuz2 = new Text(45, 145, "");
-        entuz2.setFont(Font.font("Verdana", FontWeight.BLACK, 9));
-
         entuz = new Text(30, 215, "");
-        entuz.setFont(Font.font("Verdana", FontWeight.BLACK, 9));
-
-        bridge2 = new Text(220, 220, "");
-        bridge2.setFont(Font.font("Verdana", FontWeight.BLACK, 9));
-
+        entuz2 = new Text(45, 145, "");
         bridge = new Text(185, 295, "");
-        bridge.setFont(Font.font("Verdana", FontWeight.BLACK, 9));
-
-        library2 = new Text(390, 300, "");
-        library2.setFont(Font.font("Verdana", FontWeight.BLACK, 9));
-
+        bridge2 = new Text(220, 220, "");
         library = new Text(270, 330, "");
-        library.setFont(Font.font("Verdana", FontWeight.BLACK, 9));
-
-        buvet2 = new Text(420, 365, "");
-        buvet2.setFont(Font.font("Verdana", FontWeight.BLACK, 9));
-
+        library2 = new Text(390, 300, "");
         buvet = new Text(325, 405, "");
-        buvet.setFont(Font.font("Verdana", FontWeight.BLACK, 9));
-
-        post2 = new Text(380, 500, "");
-        post2.setFont(Font.font("Verdana", FontWeight.BLACK, 9));
-
+        buvet2 = new Text(420, 365, "");
         post = new Text(295, 470, "");
-        post.setFont(Font.font("Verdana", FontWeight.BLACK, 9));
-
-        davidova2 = new Text(265, 570, "");
-        davidova2.setFont(Font.font("Verdana", FontWeight.BLACK, 9));
-
+        post2 = new Text(380, 500, "");
         davidova = new Text(145, 555, "");
-        davidova.setFont(Font.font("Verdana", FontWeight.BLACK, 9));
-
+        davidova2 = new Text(265, 570, "");
         okipnoi = new Text(105, 90, "");
-        okipnoi.setFont(Font.font("Verdana", FontWeight.BLACK, 9));
-
         slavutich = new Text(145, 635, "");
-        slavutich.setFont(Font.font("Verdana", FontWeight.BLACK, 9));
 
-        double millils = Double.parseDouble(speedField.getText());
+        livober.setFont(stopFont);
+        entuz.setFont(stopFont);
+        entuz2.setFont(stopFont);
+        bridge.setFont(stopFont);
+        bridge2.setFont(stopFont);
+        library.setFont(stopFont);
+        library2.setFont(stopFont);
+        buvet.setFont(stopFont);
+        buvet2.setFont(stopFont);
+        post.setFont(stopFont);
+        post2.setFont(stopFont);
+        davidova.setFont(stopFont);
+        davidova2.setFont(stopFont);
+        okipnoi.setFont(stopFont);
+        slavutich.setFont(stopFont);
+
+        second = Integer.parseInt(GetStartSecond());
+        minute = Integer.parseInt(GetStartMinute());
+        hour = Integer.parseInt(GetStartHour());
+        resultTime = GetStartHour() + ":" + GetStartMinute() + ":" + GetStartSecond();
+
+        double speed = Double.parseDouble(speedField.getText());
         timeline = new Timeline(
-                new KeyFrame(Duration.seconds(millils),
-                        new EventHandler<ActionEvent>() {
-                            @Override public void handle(ActionEvent actionEvent) {
-                                second++;
-                                if (second == 60) {
-                                    second = 00;
-                                    minute++;
-                                    if (minute == 60) {
-                                        minute = 00;
-                                        hour++;
-                                        if (hour == 24) {
-                                            hour = 00;
-                                        }
-                                    }
-                                }
-                                resultString = String.format("%02d", hour) + ":" + String.format("%02d", minute) + ":" + String.format("%02d", second);
-                                text.setText(resultString);
+                new KeyFrame(Duration.seconds(speed),
+                        actionEvent -> {
+                            String timeToCompare = SetClock(timeText);
+                            for (int i=0; i<list.size()-1; i++)
+                            {
+                                if (timeToCompare.equals(list.get(i)[0])) {
 
+                                    String setInfo = String.format("#%s\nout %s(%s)\nin %s(%s)\nleft %s", list.get(i)[1], list.get(i)[6], list.get(i)[7], list.get(i)[3], list.get(i)[4], list.get(i)[5]);
+                                    Color busColor = Color.web(String.valueOf(busColors.get(list.get(i)[1])));
+                                    String leftEffect = Integer.parseInt(list.get(i)[5]) > 0 ? "-fx-effect: dropshadow( one-pass-box , red , 8 , 0.0 , 1 , 0 )" : "";
 
-                                String timeToCompare;
-                                if (second == 0) {
-                                    timeToCompare = String.format("%02d", hour) + ":" + String.format("%02d", minute);
-                                } else {
-                                    timeToCompare = String.format("%02d", hour) + ":" + String.format("%02d", minute) + ":" + String.format("%02d", second);
-                                }
-                                for (int i=0; i<list.size()-1; i++)
-                                {
-                                    if (timeToCompare.equals(list.get(i)[0])) {
-                                        String setInfo = String.format("#%s\nout %s(%s)\nin %s(%s)\nleft %s", list.get(i)[1], list.get(i)[6], list.get(i)[7], list.get(i)[3], list.get(i)[4], list.get(i)[5]);
-                                        String strStyle;
-                                        if (Integer.parseInt(list.get(i)[5])>0)
-                                        {
-                                            strStyle = "-fx-effect: dropshadow( one-pass-box , red , 8 , 0.0 , 1 , 0 )";
-                                        } else {
-                                            strStyle = "";
-                                        }
-
-
-                                        if ("livober".equals(list.get(i)[2])) {
+                                    switch (list.get(i)[2]) {
+                                        case "livober":
                                             livober.setText(setInfo);
-                                            livober.setFill(Color.web(String.valueOf(busColors.get(list.get(i)[1]))));
-                                            livober.setStyle(strStyle);
-                                        }
-
-
-                                        if ("entuz".equals(list.get(i)[2])) {
+                                            livober.setFill(busColor);
+                                            livober.setStyle(leftEffect);
+                                            break;
+                                        case "entuz":
                                             entuz.setText(setInfo);
-                                            entuz.setFill(Color.web(String.valueOf(busColors.get(list.get(i)[1]))));
-                                            entuz.setStyle(strStyle);
-                                        }
-
-                                        if ("entuz2".equals(list.get(i)[2])) {
+                                            entuz.setFill(busColor);
+                                            entuz.setStyle(leftEffect);
+                                            break;
+                                        case "entuz2":
                                             entuz2.setText(setInfo);
-                                            entuz2.setFill(Color.web(String.valueOf(busColors.get(list.get(i)[1]))));
-                                            entuz2.setStyle(strStyle);
-                                        }
-
-                                        if ("bridge".equals(list.get(i)[2])) {
+                                            entuz2.setFill(busColor);
+                                            entuz2.setStyle(leftEffect);
+                                            break;
+                                        case "bridge":
                                             bridge.setText(setInfo);
-                                            bridge.setFill(Color.web(String.valueOf(busColors.get(list.get(i)[1]))));
-                                            bridge.setStyle(strStyle);
-                                        }
-
-                                        if ("bridge2".equals(list.get(i)[2])) {
+                                            bridge.setFill(busColor);
+                                            bridge.setStyle(leftEffect);
+                                            break;
+                                        case "bridge2":
                                             bridge2.setText(setInfo);
-                                            bridge2.setFill(Color.web(String.valueOf(busColors.get(list.get(i)[1]))));
-                                            bridge2.setStyle(strStyle);
-                                        }
-
-                                        if ("library".equals(list.get(i)[2])) {
+                                            bridge2.setFill(busColor);
+                                            bridge2.setStyle(leftEffect);
+                                            break;
+                                        case "library":
                                             library.setText(setInfo);
-                                            library.setFill(Color.web(String.valueOf(busColors.get(list.get(i)[1]))));
-                                            library.setStyle(strStyle);
-                                        }
-
-                                        if ("library2".equals(list.get(i)[2])) {
+                                            library.setFill(busColor);
+                                            library.setStyle(leftEffect);
+                                            break;
+                                        case "library2":
                                             library2.setText(setInfo);
-                                            library2.setFill(Color.web(String.valueOf(busColors.get(list.get(i)[1]))));
-                                            library2.setStyle(strStyle);
-                                        }
-
-                                        if ("buvet".equals(list.get(i)[2])) {
+                                            library2.setFill(busColor);
+                                            library2.setStyle(leftEffect);
+                                            break;
+                                        case "buvet":
                                             buvet.setText(setInfo);
-                                            buvet.setFill(Color.web(String.valueOf(busColors.get(list.get(i)[1]))));
-                                            buvet.setStyle(strStyle);
-                                        }
-
-                                        if ("buvet2".equals(list.get(i)[2])) {
+                                            buvet.setFill(busColor);
+                                            buvet.setStyle(leftEffect);
+                                            break;
+                                        case "buvet2":
                                             buvet2.setText(setInfo);
-                                            buvet2.setFill(Color.web(String.valueOf(busColors.get(list.get(i)[1]))));
-                                            buvet2.setStyle(strStyle);
-                                        }
-                                        if ("post".equals(list.get(i)[2])) {
+                                            buvet2.setFill(busColor);
+                                            buvet2.setStyle(leftEffect);
+                                            break;
+                                        case "post":
                                             post.setText(setInfo);
-                                            post.setFill(Color.web(String.valueOf(busColors.get(list.get(i)[1]))));
-                                            post.setStyle(strStyle);
-                                        }
-
-                                        if ("post2".equals(list.get(i)[2])) {
+                                            post.setFill(busColor);
+                                            post.setStyle(leftEffect);
+                                            break;
+                                        case "post2":
                                             post2.setText(setInfo);
-                                            post2.setFill(Color.web(String.valueOf(busColors.get(list.get(i)[1]))));
-                                            post2.setStyle(strStyle);
-                                        }
-                                        if ("davidova".equals(list.get(i)[2])) {
+                                            post2.setFill(busColor);
+                                            post2.setStyle(leftEffect);
+                                            break;
+                                        case "davidova":
                                             davidova.setText(setInfo);
-                                            davidova.setFill(Color.web(String.valueOf(busColors.get(list.get(i)[1]))));
-                                            davidova.setStyle(strStyle);
-                                        }
-
-                                        if ("davidova2".equals(list.get(i)[2])) {
+                                            davidova.setFill(busColor);
+                                            davidova.setStyle(leftEffect);
+                                            break;
+                                        case "davidova2":
                                             davidova2.setText(setInfo);
-                                            davidova2.setFill(Color.web(String.valueOf(busColors.get(list.get(i)[1]))));
-                                            davidova2.setStyle(strStyle);
-                                        }
-
-                                        if ("okipnoi".equals(list.get(i)[2])) {
+                                            davidova2.setFill(busColor);
+                                            davidova2.setStyle(leftEffect);
+                                            break;
+                                        case "okipnoi":
                                             okipnoi.setText(setInfo);
-                                            okipnoi.setFill(Color.web(String.valueOf(busColors.get(list.get(i)[1]))));
-                                            okipnoi.setStyle(strStyle);
-                                        }
-
-                                        if ("slavutich".equals(list.get(i)[2])) {
+                                            okipnoi.setFill(busColor);
+                                            okipnoi.setStyle(leftEffect);
+                                            break;
+                                        case "slavutich":
                                             slavutich.setText(setInfo);
-                                            slavutich.setFill(Color.web(String.valueOf(busColors.get(list.get(i)[1]))));
-                                            slavutich.setStyle(strStyle);
-                                        }
-                                        list.remove(i);
+                                            slavutich.setFill(busColor);
+                                            slavutich.setStyle(leftEffect);
+                                            break;
                                     }
+                                    list.remove(i);
                                 }
                             }
                         }
                 ),
-                new KeyFrame(Duration.seconds(millils))
+                new KeyFrame(Duration.seconds(speed))
         );
-        text.setFont(Font.font(18));
-        stack.getChildren().addAll(rectTime, text);
-        contentPane.getChildren().addAll(stack, okipnoi, slavutich);
-        contentPane.getChildren().addAll(livober, entuz, entuz2, bridge, bridge2, library, library2, buvet, buvet2, post, post2, davidova, davidova2);
 
-        timeline.setCycleCount(cycleCount);
+        stack = new StackPane();
+        stack.getChildren().addAll(rectTime, timeText);
+        contentPane.getChildren().addAll(stack, okipnoi, slavutich, livober, entuz, entuz2, bridge, bridge2, library, library2, buvet, buvet2, post, post2, davidova, davidova2);
+
+        timeline.setCycleCount(GetCycleCount(mainList));
         timeline.playFromStart();
 
         speedField.setDisable(false);
@@ -418,9 +317,62 @@ public class Controller extends Modeling{
 
     }
 
+    private int GetCycleCount(List<String[]> list)
+    {
+        int cycleCount;
+        String endTime = list.get(list.size()-1)[0];
+        if (endTime.length()==8)
+        {
+            String hourEnd = endTime.substring(0,2);
+            String minuteEnd = endTime.substring(3,5);
+            String secondEnd = endTime.substring(6,8);
+            int middleHour = Integer.parseInt(hourEnd) - hour; //count cycle Count
+            int middleMinute = Math.abs(Integer.parseInt(minuteEnd) - minute);
+            int middleSecond = Integer.parseInt(secondEnd);
+            cycleCount = middleHour*3600 + middleMinute*60 + middleSecond;
+        } else {
+            String hourEnd = endTime.substring(0,2);
+            String minuteEnd = endTime.substring(3,5);
+            int middleHour = Integer.parseInt(hourEnd) - hour; //count cycle Count
+            int middleMinute = Math.abs(Integer.parseInt(minuteEnd) - minute);
+            cycleCount = middleHour*3600 + middleMinute*60;
+        }
+        return cycleCount;
+    }
+
+    private String GetStartHour() {
+        return (timeFromTextField.getText()).substring(0,2);
+    }
+
+    private String GetStartMinute() {
+        return (timeFromTextField.getText()).substring(3,5);
+    }
+
+    private String GetStartSecond() { return "00"; }
+
+    private String SetClock(Text timeText){
+        second++;
+        if (second == 60) {
+            second = 0;
+            minute++;
+            if (minute == 60) {
+                minute = 0;
+                hour++;
+                if (hour == 24) {
+                    hour = 0;
+                }
+            }
+        }
+        resultTime = String.format("%02d", hour) + ":" + String.format("%02d", minute) + ":" + String.format("%02d", second);
+        timeText.setText(resultTime);
+
+        return second == 0 ? String.format("%02d", hour) + ":" + String.format("%02d", minute) : String.format("%02d", hour) + ":" + String.format("%02d", minute) + ":" + String.format("%02d", second);
+    }
+
     /**
-     *  КОНЕЦ ВИЗУАЛИЗАЦИИ
+     *  END OF VISUALIZATION
      */
+
 
     public void initialize() {
         /* Стартовые значения */
